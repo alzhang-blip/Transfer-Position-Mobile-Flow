@@ -65,11 +65,11 @@ export function ErrorModal() {
           <SadDeviceIllustration />
         </div>
 
-        <h2 className="text-[15px] font-bold text-questrade-grey-900 mb-2">
+        <h2 className="text-[17px] font-bold text-questrade-grey-900 mb-2">
           {config.title}
         </h2>
 
-        <p className="text-[12px] text-questrade-grey-500 leading-relaxed mb-5">
+        <p className="text-[14px] text-questrade-grey-500 leading-relaxed mb-5">
           {state.errorMessage ?? 'An unexpected error occurred. Please try again.'}
         </p>
 

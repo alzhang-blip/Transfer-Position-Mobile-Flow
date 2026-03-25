@@ -79,24 +79,24 @@ export function NumericInput({
           aria-invalid={!!errorMessage}
           aria-describedby={errorMessage ? `${ariaLabel}-error` : undefined}
           maxLength={10}
-          className={`w-14 rounded-xl border px-2 py-1.5 text-right text-[13px] transition-colors
+          className={`w-16 rounded-xl border px-2 py-1.5 text-right text-[15px] transition-colors
             ${errorMessage ? 'border-red-400 bg-red-50 text-red-700' : 'border-questrade-grey-300 bg-white text-questrade-grey-900'}
             ${disabled ? 'bg-questrade-grey-100 opacity-60 cursor-not-allowed' : 'focus:border-questrade-green focus:ring-1 focus:ring-questrade-green'}
             focus:outline-none
           `}
         />
-        <span className="text-[11px] text-questrade-grey-400">units</span>
+        <span className="text-[13px] text-questrade-grey-400">units</span>
       </div>
       {errorMessage && (
-        <p className="text-[9px] text-red-600 mt-0.5 text-right" role="alert" id={`${ariaLabel}-error`}>
+        <p className="text-[11px] text-red-600 mt-0.5 text-right" role="alert" id={`${ariaLabel}-error`}>
           {errorMessage}
         </p>
       )}
       {pasteHint && !errorMessage && (
-        <p className="text-[9px] text-yellow-700 mt-0.5 text-right">{pasteHint}</p>
+        <p className="text-[11px] text-yellow-700 mt-0.5 text-right">{pasteHint}</p>
       )}
       {disabled && disabledReason && !errorMessage && (
-        <p className="text-[9px] text-questrade-grey-400 mt-0.5 text-right max-w-[100px]">
+        <p className="text-[11px] text-questrade-grey-400 mt-0.5 text-right max-w-[100px]">
           {disabledReason}
         </p>
       )}

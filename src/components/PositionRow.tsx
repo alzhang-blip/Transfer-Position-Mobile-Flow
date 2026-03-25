@@ -67,10 +67,10 @@ export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted =
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-1.5">
-          <span className="font-bold text-questrade-grey-900 text-[12px] leading-none">
+          <span className="font-bold text-questrade-grey-900 text-[14px] leading-none">
             {position.symbol}
           </span>
-          <span className="text-[10px] text-questrade-grey-400 truncate leading-none" title={position.companyName}>
+          <span className="text-[12px] text-questrade-grey-400 truncate leading-none" title={position.companyName}>
             {position.companyName}
           </span>
         </div>

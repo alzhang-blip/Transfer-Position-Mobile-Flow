@@ -83,12 +83,12 @@ export function Dropdown({
 
   return (
     <div ref={containerRef} className="relative">
-      <label className="block text-[11px] font-medium text-questrade-grey-600 mb-1">
+      <label className="block text-[13px] font-medium text-questrade-grey-600 mb-1">
         {label}
       </label>
       <button
         type="button"
-        className={`w-full flex items-center justify-between rounded-xl border bg-white px-3 py-2.5 text-left text-[13px] transition-colors
+        className={`w-full flex items-center justify-between rounded-xl border bg-white px-3 py-2.5 text-left text-[15px] transition-colors
           ${isOpen ? 'border-questrade-green ring-1 ring-questrade-green' : 'border-questrade-grey-300'}
           ${disabled ? 'bg-questrade-grey-100 cursor-not-allowed opacity-60' : 'hover:border-questrade-grey-400 cursor-pointer'}
         `}
@@ -109,7 +109,7 @@ export function Dropdown({
       </button>
 
       {(allDisabled || helperText) && (
-        <p className="text-[10px] text-questrade-grey-500 mt-1">
+        <p className="text-[12px] text-questrade-grey-500 mt-1">
           {helperText ?? 'None of your accounts are currently eligible to receive this transfer.'}
         </p>
       )}
@@ -130,7 +130,7 @@ export function Dropdown({
                 aria-selected={selectedAccount?.accountId === account.accountId}
                 aria-disabled={isItemDisabled}
                 tabIndex={isItemDisabled ? -1 : 0}
-                className={`flex items-center justify-between px-3 py-2.5 text-[13px] transition-colors
+                className={`flex items-center justify-between px-3 py-2.5 text-[15px] transition-colors
                   ${isItemDisabled ? 'text-questrade-grey-400 cursor-not-allowed' : 'text-questrade-grey-900 cursor-pointer hover:bg-questrade-grey-50'}
                   ${selectedAccount?.accountId === account.accountId ? 'bg-questrade-green-light' : ''}
                 `}

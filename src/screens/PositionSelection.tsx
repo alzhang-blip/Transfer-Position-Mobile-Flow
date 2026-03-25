@@ -158,12 +158,12 @@ export function PositionSelection() {
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[13px] font-semibold text-questrade-grey-900">Positions</span>
-              <span className="text-[10px] text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
+              <span className="text-[15px] font-semibold text-questrade-grey-900">Positions</span>
+              <span className="text-[12px] text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
                 {state.positions.length}
               </span>
               {selectedCount > 0 && (
-                <span className="text-[10px] text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full font-medium">
+                <span className="text-[12px] text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full font-medium">
                   {selectedCount} selected
                 </span>
               )}
@@ -172,7 +172,7 @@ export function PositionSelection() {
               type="button"
               onClick={handleMaxAll}
               disabled={state.isLoadingPositions}
-              className="text-[11px] font-medium text-questrade-green hover:underline disabled:opacity-50"
+              className="text-[13px] font-medium text-questrade-green hover:underline disabled:opacity-50"
               aria-label="Max all units. Fills in maximum transferable units for all positions."
             >
               Max all units
@@ -203,7 +203,7 @@ export function PositionSelection() {
                 placeholder="Search by ticker or name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 text-[12px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
+                className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 text-[14px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
                 aria-label="Search positions"
               />
             </div>
@@ -211,7 +211,7 @@ export function PositionSelection() {
 
           <div className="position-list border border-questrade-grey-200 rounded-xl overflow-hidden mt-2 max-h-[280px] overflow-y-auto bg-white">
             {filteredPositions.length === 0 ? (
-              <div className="py-6 text-center text-questrade-grey-400 text-[12px]">
+              <div className="py-6 text-center text-questrade-grey-400 text-[14px]">
                 {searchQuery ? 'No positions match your search.' : 'No positions available.'}
               </div>
             ) : (
@@ -249,14 +249,14 @@ export function PositionSelection() {
           Next
         </Button>
         {!hasSelectedPositions && state.positions.length > 0 && !allFractionalOnly && !allFhsaRestricted && (
-          <p className="text-[10px] text-questrade-grey-400 text-center mt-1.5">
+          <p className="text-[12px] text-questrade-grey-400 text-center mt-1.5">
             Enter units for at least one position to continue.
           </p>
         )}
       </div>
 
       <div className="text-center pt-0.5 pb-1.5">
-        <a href="#" className="text-[11px] text-questrade-green underline">
+        <a href="#" className="text-[13px] text-questrade-green underline">
           View disclosure
         </a>
       </div>
@@ -267,8 +267,8 @@ export function PositionSelection() {
 function ReadOnlyField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <label className="block text-[11px] font-medium text-questrade-grey-600 mb-1">{label}</label>
-      <div className="w-full rounded-xl border border-questrade-grey-200 bg-questrade-grey-50 px-3 py-2 text-[13px] text-questrade-grey-700">
+      <label className="block text-[13px] font-medium text-questrade-grey-600 mb-1">{label}</label>
+      <div className="w-full rounded-xl border border-questrade-grey-200 bg-questrade-grey-50 px-3 py-2 text-[15px] text-questrade-grey-700">
         {value}
       </div>
     </div>

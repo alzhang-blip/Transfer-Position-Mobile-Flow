@@ -7,7 +7,7 @@ export function OfflineBanner() {
 
   return (
     <div
-      className="bg-yellow-600 text-white text-[10px] font-medium text-center px-3 py-1 flex-shrink-0"
+      className="bg-yellow-600 text-white text-[11px] font-medium text-center px-3 py-1 flex-shrink-0"
       role="alert"
       aria-live="assertive"
     >

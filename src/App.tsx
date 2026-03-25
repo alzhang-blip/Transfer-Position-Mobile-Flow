@@ -42,7 +42,7 @@ function TransferFlow() {
           <button
             type="button"
             onClick={handleBack}
-            className="flex items-center gap-1.5 text-[12px] text-questrade-green hover:underline"
+            className="flex items-center gap-1.5 text-[14px] text-questrade-green hover:underline"
             aria-label="Go back"
           >
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -50,22 +50,15 @@ function TransferFlow() {
             </svg>
             <span>Back to Account selection</span>
           </button>
-          <button
-            type="button"
-            onClick={handleExitFlow}
-            className="mt-0.5 text-[10px] text-questrade-grey-500 hover:underline"
-          >
-            Back to Choose a transfer type
-          </button>
         </nav>
       )}
 
       {/* Header */}
       <header className="px-3.5 pt-4 pb-2 flex-shrink-0">
-        <h1 className="text-[20px] font-bold text-questrade-grey-900 leading-tight">
+        <h1 className="text-[22px] font-bold text-questrade-grey-900 leading-tight">
           Transfer investments
         </h1>
-        <p className="mt-2 text-[11px] text-questrade-grey-500 leading-relaxed">
+        <p className="mt-2 text-[13px] text-questrade-grey-500 leading-relaxed">
           Transfer investments between your Questrade Self-directed accounts. For
           transfers from another broker or financial institution, go to{' '}
           <a href="#" className="text-questrade-green font-medium underline">
