@@ -1,0 +1,315 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────────────
+   Base
+   ────────────────────────────────────────────────── */
+@layer base {
+  * {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+      'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  input[type='text']::-webkit-outer-spin-button,
+  input[type='text']::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+/* ──────────────────────────────────────────────────
+   Showcase page (the page that holds the phone)
+   ────────────────────────────────────────────────── */
+.showcase-page {
+  min-height: 100%;
+  background: linear-gradient(145deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.showcase-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.showcase-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.showcase-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: #64748b;
+  margin-top: -16px;
+  text-align: center;
+}
+
+/* ──────────────────────────────────────────────────
+   iPhone 17 Frame
+   ────────────────────────────────────────────────── */
+.iphone-frame {
+  position: relative;
+  width: 390px;
+  height: 844px;
+  border-radius: 55px;
+  background: #1a1a1a;
+  box-shadow:
+    0 0 0 2px #333,
+    0 0 0 4px #1a1a1a,
+    0 20px 60px rgba(0, 0, 0, 0.55),
+    0 0 120px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+}
+
+/* Side buttons */
+.iphone-btn {
+  position: absolute;
+  background: #2a2a2a;
+  border-radius: 2px;
+}
+
+.iphone-btn--silent {
+  width: 3px;
+  height: 28px;
+  left: -3px;
+  top: 148px;
+  border-radius: 2px 0 0 2px;
+}
+
+.iphone-btn--vol-up {
+  width: 3px;
+  height: 50px;
+  left: -3px;
+  top: 200px;
+  border-radius: 2px 0 0 2px;
+}
+
+.iphone-btn--vol-down {
+  width: 3px;
+  height: 50px;
+  left: -3px;
+  top: 262px;
+  border-radius: 2px 0 0 2px;
+}
+
+.iphone-btn--power {
+  width: 3px;
+  height: 76px;
+  right: -3px;
+  top: 210px;
+  border-radius: 0 2px 2px 0;
+}
+
+/* Inner bezel */
+.iphone-bezel {
+  position: absolute;
+  inset: 4px;
+  border-radius: 51px;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Screen */
+.iphone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Status bar */
+.iphone-status-bar {
+  flex-shrink: 0;
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 0 28px 8px;
+  background: #fff;
+  position: relative;
+  z-index: 60;
+}
+
+.iphone-status-time {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  letter-spacing: 0.01em;
+  width: 54px;
+}
+
+.iphone-dynamic-island {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 126px;
+  height: 36px;
+  background: #000;
+  border-radius: 20px;
+}
+
+.iphone-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #1a1a1a;
+  width: 72px;
+  justify-content: flex-end;
+}
+
+/* Scrollable content area */
+.iphone-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+.iphone-content::-webkit-scrollbar {
+  width: 3px;
+}
+
+.iphone-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.iphone-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+/* Home indicator */
+.iphone-home-indicator {
+  flex-shrink: 0;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  position: relative;
+  z-index: 60;
+}
+
+.iphone-home-bar {
+  width: 134px;
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 100px;
+  opacity: 0.2;
+}
+
+/* ──────────────────────────────────────────────────
+   Animations
+   ────────────────────────────────────────────────── */
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 200ms ease-out;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ──────────────────────────────────────────────────
+   Reduced motion: respect system preference
+   ────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-pulse {
+    animation: none !important;
+    opacity: 0.7;
+  }
+
+  .animate-spin {
+    animation: none !important;
+    opacity: 0.7;
+  }
+}
+
+/* ──────────────────────────────────────────────────
+   Responsive: scale down on smaller viewports
+   ────────────────────────────────────────────────── */
+@media (max-height: 960px) {
+  .iphone-frame {
+    transform: scale(0.85);
+    transform-origin: top center;
+  }
+  .showcase-page {
+    padding-top: 20px;
+    align-items: flex-start;
+  }
+}
+
+@media (max-height: 780px) {
+  .iphone-frame {
+    transform: scale(0.72);
+  }
+}
+
+@media (max-width: 440px) {
+  .iphone-frame {
+    transform: scale(0.82);
+    transform-origin: top center;
+  }
+  .showcase-page {
+    padding: 16px 0;
+    align-items: flex-start;
+  }
+  .showcase-title {
+    font-size: 18px;
+  }
+}
