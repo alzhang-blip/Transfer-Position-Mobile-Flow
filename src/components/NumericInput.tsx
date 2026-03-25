@@ -79,7 +79,7 @@ export function NumericInput({
           aria-invalid={!!errorMessage}
           aria-describedby={errorMessage ? `${ariaLabel}-error` : undefined}
           maxLength={10}
-          className={`w-14 rounded-md border px-2 py-1.5 text-right text-[13px] transition-colors
+          className={`w-14 rounded-xl border px-2 py-1.5 text-right text-[13px] transition-colors
             ${errorMessage ? 'border-red-400 bg-red-50 text-red-700' : 'border-questrade-grey-300 bg-white text-questrade-grey-900'}
             ${disabled ? 'bg-questrade-grey-100 opacity-60 cursor-not-allowed' : 'focus:border-questrade-green focus:ring-1 focus:ring-questrade-green'}
             focus:outline-none

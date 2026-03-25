@@ -36,24 +36,20 @@ function TransferFlow() {
     <>
       <OfflineBanner />
 
-      {/* Nav */}
-      <nav className="bg-white border-b border-questrade-grey-200 px-3.5 py-2 flex-shrink-0">
-        <button
-          type="button"
-          onClick={handleBack}
-          className="flex items-center gap-1.5 text-[12px] text-questrade-green hover:underline"
-          aria-label="Go back"
-        >
-          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-          </svg>
-          <span>
-            {state.step === 'position-selection'
-              ? 'Back to Account selection'
-              : 'Back to Choose a transfer type'}
-          </span>
-        </button>
-        {state.step === 'position-selection' && (
+      {/* Nav — only shown on position selection */}
+      {state.step === 'position-selection' && (
+        <nav className="bg-[#f5f5f5] border-b border-questrade-grey-200 px-3.5 py-2 flex-shrink-0">
+          <button
+            type="button"
+            onClick={handleBack}
+            className="flex items-center gap-1.5 text-[12px] text-questrade-green hover:underline"
+            aria-label="Go back"
+          >
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <span>Back to Account selection</span>
+          </button>
           <button
             type="button"
             onClick={handleExitFlow}
@@ -61,15 +57,15 @@ function TransferFlow() {
           >
             Back to Choose a transfer type
           </button>
-        )}
-      </nav>
+        </nav>
+      )}
 
       {/* Header */}
-      <header className="px-3.5 pt-3 pb-1 flex-shrink-0">
-        <h1 className="text-[17px] font-bold text-questrade-grey-900 leading-tight">
+      <header className="px-3.5 pt-4 pb-2 flex-shrink-0">
+        <h1 className="text-[20px] font-bold text-questrade-grey-900 leading-tight">
           Transfer investments
         </h1>
-        <p className="mt-1.5 text-[11px] text-questrade-grey-500 leading-relaxed">
+        <p className="mt-2 text-[11px] text-questrade-grey-500 leading-relaxed">
           Transfer investments between your Questrade Self-directed accounts. For
           transfers from another broker or financial institution, go to{' '}
           <a href="#" className="text-questrade-green font-medium underline">

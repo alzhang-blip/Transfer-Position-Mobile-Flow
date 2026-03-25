@@ -55,17 +55,14 @@ export function ReviewConfirmModal() {
               <span>Position</span>
               <span>Qty</span>
             </div>
-            <div className="space-y-2 max-h-40 overflow-y-auto">
-              {positionsToTransfer.map(({ symbol, companyName, units }) => (
+            <div className="space-y-2.5 max-h-40 overflow-y-auto">
+              {positionsToTransfer.map(({ symbol, units }) => (
                 <div key={symbol} className="flex items-center justify-between gap-3">
-                  <div className="flex-1 min-w-0">
-                    <span className="text-[12px] text-questrade-grey-900 font-bold">{symbol}</span>
-                    <span className="text-[11px] text-questrade-grey-500 ml-1.5 truncate">
-                      {companyName}
-                    </span>
-                  </div>
-                  <span className="text-[12px] text-questrade-grey-900 font-medium whitespace-nowrap">
-                    {units}
+                  <span className="text-[12px] text-questrade-grey-900 font-bold">
+                    {symbol}
+                  </span>
+                  <span className="text-[12px] text-questrade-grey-900 font-medium whitespace-nowrap pt-px">
+                    {units} {units === 1 ? 'unit' : 'units'}
                   </span>
                 </div>
               ))}

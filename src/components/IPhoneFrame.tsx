@@ -57,11 +57,11 @@ function CellularIcon() {
 
 function WifiIcon() {
   return (
-    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-      <path d="M8 11.5a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z" fill="currentColor" />
-      <path d="M4.93 7.83a4.37 4.37 0 016.14 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <path d="M2.4 5.3a7.5 7.5 0 0111.2 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-      <path d="M0 2.7a10.8 10.8 0 0116 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+    <svg width="16" height="13" viewBox="-1 0 18 13" fill="none" aria-hidden="true">
+      <path d="M8 12.5a1.25 1.25 0 100-2.5 1.25 1.25 0 000 2.5z" fill="currentColor" />
+      <path d="M4.93 8.83a4.37 4.37 0 016.14 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M2.4 6.3a7.5 7.5 0 0111.2 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+      <path d="M0 3.7a10.8 10.8 0 0116 0" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
     </svg>
   );
 }

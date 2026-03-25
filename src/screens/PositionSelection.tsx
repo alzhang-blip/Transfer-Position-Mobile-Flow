@@ -86,7 +86,7 @@ export function PositionSelection() {
   // ── Loading ──────────────────────────
   if (state.isLoadingPositions) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
         <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
         <SkeletonLoader rows={4} />
@@ -97,7 +97,7 @@ export function PositionSelection() {
   // ── Error ────────────────────────────
   if (state.positionsError) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
         <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
         <ErrorState
@@ -111,7 +111,7 @@ export function PositionSelection() {
   // ── Empty ────────────────────────────
   if (state.positions.length === 0) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
         <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
         <EmptyState title="No positions to transfer" description="This account has no positions to transfer." />
@@ -122,7 +122,7 @@ export function PositionSelection() {
   // ── All fractional ───────────────────
   if (allFractionalOnly) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
         <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
         <EmptyState
@@ -136,7 +136,7 @@ export function PositionSelection() {
   // ── All FHSA restricted ──────────────
   if (allFhsaRestricted) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-4">
         <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
         <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
         <EmptyState
@@ -150,7 +150,7 @@ export function PositionSelection() {
   // ── Main ─────────────────────────────
   return (
     <div className="flex flex-col">
-      <div className="space-y-3 flex-1">
+      <div className="space-y-4 flex-1">
         <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
         <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
 
@@ -203,13 +203,13 @@ export function PositionSelection() {
                 placeholder="Search by ticker or name..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-md border border-questrade-grey-300 px-3 py-2 text-[12px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
+                className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 text-[12px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
                 aria-label="Search positions"
               />
             </div>
           )}
 
-          <div className="border border-questrade-grey-200 rounded-lg overflow-hidden mt-2 max-h-[280px] overflow-y-auto">
+          <div className="position-list border border-questrade-grey-200 rounded-xl overflow-hidden mt-2 max-h-[280px] overflow-y-auto bg-white">
             {filteredPositions.length === 0 ? (
               <div className="py-6 text-center text-questrade-grey-400 text-[12px]">
                 {searchQuery ? 'No positions match your search.' : 'No positions available.'}
@@ -228,12 +228,12 @@ export function PositionSelection() {
           </div>
         </div>
 
-        <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
-
         <InfoBanner>
           All positions will be valued and transferred based on the closing market price of the
           day the request is created.
         </InfoBanner>
+
+        <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
 
         <InfoCard variant="info" title="Self-directed accounts only">
           You cannot directly transfer positions with a Questwealth account.{' '}
@@ -244,7 +244,7 @@ export function PositionSelection() {
       </div>
 
       {/* Sticky footer */}
-      <div className="sticky bottom-0 bg-white pt-2.5 pb-1.5 -mx-3.5 px-3.5 border-t border-questrade-grey-100">
+      <div className="sticky bottom-0 bg-[#f5f5f5] pt-2.5 pb-1.5 -mx-3.5 px-3.5 border-t border-questrade-grey-200">
         <Button fullWidth disabled={!canProceed} onClick={openReviewModal}>
           Next
         </Button>
@@ -268,7 +268,7 @@ function ReadOnlyField({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <label className="block text-[11px] font-medium text-questrade-grey-600 mb-1">{label}</label>
-      <div className="w-full rounded-md border border-questrade-grey-200 bg-questrade-grey-50 px-3 py-2 text-[13px] text-questrade-grey-700">
+      <div className="w-full rounded-xl border border-questrade-grey-200 bg-questrade-grey-50 px-3 py-2 text-[13px] text-questrade-grey-700">
         {value}
       </div>
     </div>

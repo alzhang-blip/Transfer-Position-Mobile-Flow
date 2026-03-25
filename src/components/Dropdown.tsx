@@ -88,7 +88,7 @@ export function Dropdown({
       </label>
       <button
         type="button"
-        className={`w-full flex items-center justify-between rounded-lg border bg-white px-3 py-2.5 text-left text-[13px] transition-colors
+        className={`w-full flex items-center justify-between rounded-xl border bg-white px-3 py-2.5 text-left text-[13px] transition-colors
           ${isOpen ? 'border-questrade-green ring-1 ring-questrade-green' : 'border-questrade-grey-300'}
           ${disabled ? 'bg-questrade-grey-100 cursor-not-allowed opacity-60' : 'hover:border-questrade-grey-400 cursor-pointer'}
         `}
@@ -117,7 +117,7 @@ export function Dropdown({
       {isOpen && !isEmpty && (
         <ul
           role="listbox"
-          className="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto rounded-lg border border-questrade-grey-200 bg-white shadow-lg"
+          className="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto rounded-xl border border-questrade-grey-200 bg-white shadow-lg"
         >
           {filteredAccounts.map((account) => {
             const badgeInfo = eligibilityBadge[account.eligibility];

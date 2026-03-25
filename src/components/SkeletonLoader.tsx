@@ -7,7 +7,7 @@ export function SkeletonLoader({ rows = 3 }: { rows?: number }) {
             <div className="h-3 bg-questrade-grey-200 rounded w-1/3" />
             <div className="h-2.5 bg-questrade-grey-100 rounded w-2/3" />
           </div>
-          <div className="h-8 w-16 bg-questrade-grey-200 rounded-md" />
+          <div className="h-8 w-16 bg-questrade-grey-200 rounded-xl" />
         </div>
       ))}
     </div>

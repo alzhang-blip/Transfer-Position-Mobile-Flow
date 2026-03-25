@@ -49,10 +49,10 @@ export function AccountSelection() {
 
   if (state.isLoadingAccounts) {
     return (
-      <div className="space-y-3.5">
+      <div className="space-y-4">
         <DropdownSkeleton label="From account" />
         <DropdownSkeleton label="To account" />
-        <div className="h-12 bg-questrade-grey-100 rounded-md animate-pulse" />
+        <div className="h-12 bg-questrade-grey-100 rounded-xl animate-pulse" />
       </div>
     );
   }
@@ -89,7 +89,7 @@ export function AccountSelection() {
   }
 
   return (
-    <div className="space-y-3.5">
+    <div className="space-y-4">
       <Dropdown
         label="From account"
         placeholder="Choose an account"
@@ -110,12 +110,12 @@ export function AccountSelection() {
         disabled={state.isOffline || !state.fromAccount}
       />
 
-      <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
-
       <InfoBanner>
         All positions will be valued and transferred based on the closing market price of the
         day the request is created.
       </InfoBanner>
+
+      <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
 
       <InfoCard variant="info" title="Self-directed accounts only">
         You cannot directly transfer positions with a Questwealth account.{' '}
@@ -148,7 +148,7 @@ function DropdownSkeleton({ label }: { label: string }) {
   return (
     <div className="animate-pulse">
       <p className="text-[11px] font-medium text-questrade-grey-600 mb-1">{label}</p>
-      <div className="h-10 bg-questrade-grey-200 rounded-lg" />
+      <div className="h-10 bg-questrade-grey-200 rounded-xl" />
     </div>
   );
 }

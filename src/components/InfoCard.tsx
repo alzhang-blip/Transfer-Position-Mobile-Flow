@@ -8,23 +8,13 @@ interface InfoCardProps {
   children: ReactNode;
 }
 
-const variantClasses: Record<CardVariant, string> = {
-  warning: 'bg-questrade-yellow-bg border-questrade-yellow-border',
-  info: 'bg-questrade-info-bg border-questrade-info-border',
-};
-
-const titleClasses: Record<CardVariant, string> = {
-  warning: 'text-yellow-900',
-  info: 'text-questrade-grey-900',
-};
-
-export function InfoCard({ variant = 'info', title, children }: InfoCardProps) {
+export function InfoCard({ variant: _variant = 'info', title, children }: InfoCardProps) {
   return (
     <div
-      className={`rounded-md border px-3 py-2.5 ${variantClasses[variant]}`}
+      className="rounded-xl border border-questrade-grey-200 bg-white px-3 py-2.5"
       role="note"
     >
-      <h3 className={`text-[11px] font-bold mb-1 leading-snug ${titleClasses[variant]}`}>
+      <h3 className="text-[11px] font-bold mb-1 leading-snug text-questrade-grey-900">
         {title}
       </h3>
       <div className="text-[11px] text-questrade-grey-600 leading-relaxed">
