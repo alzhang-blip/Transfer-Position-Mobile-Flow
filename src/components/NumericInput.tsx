@@ -17,10 +17,9 @@ export function NumericInput({
   disabledReason,
   ariaLabel,
 }: NumericInputProps) {
-  const [touched, setTouched] = useState(false);
   const [pasteHint, setPasteHint] = useState<string | null>(null);
 
-  const hasError = touched && value > 0 && value > max;
+  const hasError = value > 0 && value > max;
 
   const sanitize = useCallback((raw: string): number => {
     const digits = raw.replace(/\D/g, '').slice(0, 10);
@@ -53,8 +52,6 @@ export function NumericInput({
     if (['-', '.', ',', 'e', 'E', '+'].includes(e.key)) e.preventDefault();
   }, []);
 
-  const handleBlur = useCallback(() => setTouched(true), []);
-
   const errorMessage = hasError
     ? max === 0
       ? 'Contact support'
@@ -72,7 +69,6 @@ export function NumericInput({
           onChange={handleChange}
           onPaste={handlePaste}
           onKeyDown={handleKeyDown}
-          onBlur={handleBlur}
           disabled={disabled}
           placeholder="0"
           aria-label={ariaLabel}
