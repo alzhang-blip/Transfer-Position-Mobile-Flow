@@ -61,25 +61,23 @@ export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted =
 
   return (
     <div
-      className="flex items-center justify-between gap-2 py-2 px-3 border-b border-questrade-grey-100 last:border-b-0"
+      className="flex items-start justify-between gap-2 py-2.5 px-3 border-b border-questrade-grey-100 last:border-b-0"
       role="group"
       aria-label={accessibleDescription}
     >
       <div className="flex-1 min-w-0">
-        <div className="flex items-baseline gap-1.5">
-          <span className="font-bold text-questrade-grey-900 text-[14px] leading-none">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="font-bold text-questrade-grey-900 text-[14px] leading-tight">
             {position.symbol}
           </span>
-          <span className="text-[12px] text-questrade-grey-400 truncate leading-none" title={position.companyName}>
-            {position.companyName}
-          </span>
-        </div>
-        <div className="mt-1 flex items-center gap-1 flex-wrap">
           {getUnitsBadge(position)}
           {isFhsaRestricted && <Badge variant="grey">Not FHSA eligible</Badge>}
         </div>
+        <p className="text-[12px] text-questrade-grey-400 truncate mt-0.5 leading-snug" title={position.companyName}>
+          {position.companyName}
+        </p>
       </div>
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 pt-0.5">
         <NumericInput
           value={units}
           max={maxTransferable}

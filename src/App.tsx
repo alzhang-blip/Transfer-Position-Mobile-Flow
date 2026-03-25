@@ -9,9 +9,18 @@ import { PositionSelection } from './screens/PositionSelection';
 import { ReviewConfirmModal } from './modals/ReviewConfirmModal';
 import { ErrorModal } from './modals/ErrorModal';
 import { SuccessModal } from './modals/SuccessModal';
+import { Button } from './components/Button';
 
 function TransferFlow() {
-  const { state, goBackToAccountSelection, requestLeave, done } = useTransfer();
+  const {
+    state,
+    goBackToAccountSelection,
+    requestLeave,
+    done,
+    openReviewModal,
+    loadPositions,
+    goToPositionSelection,
+  } = useTransfer();
 
   const prevStepRef = useRef(state.step);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
@@ -43,6 +52,27 @@ function TransferFlow() {
     : slideDirection === 'right'
       ? 'animate-slideInRight'
       : '';
+
+  const canProceedAccount =
+    state.fromAccount !== null &&
+    state.toAccount !== null &&
+    state.fromAccount.accountId !== state.toAccount.accountId &&
+    !state.isOffline;
+
+  const hasSelectedPositions = Object.values(state.unitEntries).some((u) => u > 0);
+  const hasValidationErrors = Object.entries(state.unitEntries).some(([symbol, units]) => {
+    if (units <= 0) return false;
+    const pos = state.positions.find((p) => p.symbol === symbol);
+    if (!pos) return false;
+    return units > Math.floor(pos.availableUnits);
+  });
+  const canProceedPositions = hasSelectedPositions && !hasValidationErrors && !state.isOffline;
+
+  const handleNextAccount = async () => {
+    if (!state.fromAccount) return;
+    await loadPositions(state.fromAccount.accountId);
+    goToPositionSelection();
+  };
 
   return (
     <>
@@ -80,13 +110,39 @@ function TransferFlow() {
         </p>
       </header>
 
-      {/* Content with slide transition */}
-      <main className="flex-1 px-3.5 py-3 overflow-hidden">
+      {/* Scrollable content */}
+      <main className="flex-1 px-3.5 py-3 overflow-x-hidden overflow-y-auto">
         <div key={slideKey} className={slideClass}>
           {state.step === 'account-selection' && <AccountSelection />}
           {state.step === 'position-selection' && <PositionSelection />}
         </div>
       </main>
+
+      {/* Pinned footer — always visible at bottom */}
+      <div className="flex-shrink-0 bg-[#f5f5f5] px-3.5 pt-2 pb-1 border-t border-questrade-grey-200">
+        {state.step === 'account-selection' && (
+          <Button
+            fullWidth
+            disabled={!canProceedAccount}
+            onClick={handleNextAccount}
+            loading={state.isLoadingPositions}
+          >
+            Next
+          </Button>
+        )}
+        {state.step === 'position-selection' && (
+          <>
+            <Button fullWidth disabled={!canProceedPositions} onClick={openReviewModal}>
+              Next
+            </Button>
+            {!hasSelectedPositions && state.positions.length > 0 && (
+              <p className="text-[12px] text-questrade-grey-400 text-center mt-1">
+                Enter units for at least one position.
+              </p>
+            )}
+          </>
+        )}
+      </div>
 
       <ReviewConfirmModal />
       <ErrorModal />

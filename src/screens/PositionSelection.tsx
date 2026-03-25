@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
 import { useTransfer } from '../context/TransferContext';
-import { Button } from '../components/Button';
 import { InfoBanner } from '../components/InfoBanner';
 import { PositionRow } from '../components/PositionRow';
 import { SkeletonLoader } from '../components/SkeletonLoader';
@@ -8,7 +7,7 @@ import { EmptyState } from '../components/EmptyState';
 import { ErrorState } from '../components/ErrorState';
 
 export function PositionSelection() {
-  const { state, setUnitEntry, setAllMaxUnits, openReviewModal, loadPositions, showToast } =
+  const { state, setUnitEntry, setAllMaxUnits, clearAllUnits, loadPositions, showToast } =
     useTransfer();
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -37,24 +36,6 @@ export function PositionSelection() {
         p.companyName.toLowerCase().includes(q),
     );
   }, [state.positions, searchQuery]);
-
-  const hasSelectedPositions = useMemo(
-    () => Object.values(state.unitEntries).some((u) => u > 0),
-    [state.unitEntries],
-  );
-
-  const hasValidationErrors = useMemo(() => {
-    return Object.entries(state.unitEntries).some(([symbol, units]) => {
-      if (units <= 0) return false;
-      const pos = state.positions.find((p) => p.symbol === symbol);
-      if (!pos) return false;
-      const isDisabled = !pos.isTransferable || fhsaDisabledSymbols.has(symbol);
-      if (isDisabled) return false;
-      return units > Math.floor(pos.availableUnits);
-    });
-  }, [state.unitEntries, state.positions, fhsaDisabledSymbols]);
-
-  const canProceed = hasSelectedPositions && !hasValidationErrors && !state.isOffline;
 
   const handleUnitsChange = useCallback(
     (symbol: string, units: number) => setUnitEntry(symbol, units),
@@ -132,27 +113,28 @@ export function PositionSelection() {
               </span>
             )}
           </div>
-          <button
-            type="button"
-            onClick={handleMaxAll}
-            disabled={state.isLoadingPositions}
-            className="text-[13px] font-medium text-questrade-green hover:underline disabled:opacity-50"
-            aria-label="Max all units. Fills in maximum transferable units for all positions."
-          >
-            Max all units
-          </button>
-        </div>
-
-        {hasFractionalShares && (
-          <div className="mb-2">
-            <InfoBanner variant="blue">
-              <div className="flex items-start gap-1.5">
-                <InfoIcon />
-                <span>To transfer fractional shares, contact support at 1-(888)-783-7866.</span>
-              </div>
-            </InfoBanner>
+          <div className="flex items-center gap-3">
+            {selectedCount > 0 && (
+              <button
+                type="button"
+                onClick={clearAllUnits}
+                className="text-[13px] font-medium text-questrade-grey-500 hover:underline"
+                aria-label="Clear all entered units"
+              >
+                Clear
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={handleMaxAll}
+              disabled={state.isLoadingPositions}
+              className="text-[13px] font-medium text-questrade-green hover:underline disabled:opacity-50"
+              aria-label="Max all units. Fills in maximum transferable units for all positions."
+            >
+              Max all units
+            </button>
           </div>
-        )}
+        </div>
 
         {isFhsaDestination && fhsaDisabledSymbols.size > 0 && !allFhsaRestricted && (
           <div className="mb-2">
@@ -192,31 +174,27 @@ export function PositionSelection() {
             ))
           )}
         </div>
+
+        {hasFractionalShares && (
+          <div className="mt-3">
+            <InfoBanner variant="blue">
+              <p>To transfer fractional shares, contact support.</p>
+              <p className="mt-1">
+                <a href="tel:18887837866" className="text-questrade-green font-medium underline">
+                  1-(888)-783-7866
+                </a>
+              </p>
+            </InfoBanner>
+          </div>
+        )}
       </div>
 
-      {/* Sticky footer */}
-      <div className="sticky bottom-0 bg-[#f5f5f5] pt-2.5 pb-1.5 -mx-3.5 px-3.5 border-t border-questrade-grey-200">
-        <Button fullWidth disabled={!canProceed} onClick={openReviewModal}>
-          Next
-        </Button>
-        {!hasSelectedPositions && state.positions.length > 0 && !allFractionalOnly && !allFhsaRestricted && (
-          <p className="text-[12px] text-questrade-grey-400 text-center mt-1.5">
-            Enter units for at least one position to continue.
-          </p>
-        )}
+      <div className="text-center pt-3 pb-1">
+        <a href="#" className="text-[13px] text-questrade-green underline">
+          View disclosure
+        </a>
       </div>
     </div>
   );
 }
 
-function InfoIcon() {
-  return (
-    <svg className="h-3.5 w-3.5 mt-px text-blue-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-      <path
-        fillRule="evenodd"
-        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z"
-        clipRule="evenodd"
-      />
-    </svg>
-  );
-}

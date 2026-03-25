@@ -137,6 +137,7 @@ export interface TransferContextValue {
   loadPositions: (accountId: string) => Promise<void>;
   setUnitEntry: (symbol: string, units: number) => void;
   setAllMaxUnits: (disabledSymbols?: Set<string>) => void;
+  clearAllUnits: () => void;
   goToPositionSelection: () => void;
   goBackToAccountSelection: () => void;
   openReviewModal: () => void;
@@ -239,6 +240,10 @@ export function TransferProvider({ children }: { children: ReactNode }) {
     },
     [state.positions],
   );
+
+  const clearAllUnits = useCallback(() => {
+    dispatch({ type: 'CLEAR_UNIT_ENTRIES' });
+  }, []);
 
   // ── Navigation ──────────────────────────────
   const goToPositionSelection = useCallback(() => {
@@ -351,6 +356,7 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       loadPositions,
       setUnitEntry,
       setAllMaxUnits,
+      clearAllUnits,
       goToPositionSelection,
       goBackToAccountSelection,
       openReviewModal,
@@ -374,6 +380,7 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       loadPositions,
       setUnitEntry,
       setAllMaxUnits,
+      clearAllUnits,
       goToPositionSelection,
       goBackToAccountSelection,
       openReviewModal,

@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from 'react';
 import { useTransfer } from '../context/TransferContext';
-import { Button } from '../components/Button';
 import { Dropdown } from '../components/Dropdown';
 import { InfoBanner } from '../components/InfoBanner';
 import { InfoCard } from '../components/InfoCard';
@@ -15,8 +14,6 @@ export function AccountSelection() {
     loadAccounts,
     setFromAccount,
     setToAccount,
-    loadPositions,
-    goToPositionSelection,
   } = useTransfer();
 
   useEffect(() => {
@@ -34,18 +31,6 @@ export function AccountSelection() {
     () => selfDirectedAccounts.filter((a) => a.eligibility === 'eligible' || a.eligibility === 'fx'),
     [selfDirectedAccounts],
   );
-
-  const canProceed =
-    state.fromAccount !== null &&
-    state.toAccount !== null &&
-    state.fromAccount.accountId !== state.toAccount.accountId &&
-    !state.isOffline;
-
-  const handleNext = async () => {
-    if (!state.fromAccount) return;
-    await loadPositions(state.fromAccount.accountId);
-    goToPositionSelection();
-  };
 
   if (state.isLoadingAccounts) {
     return (
@@ -124,18 +109,7 @@ export function AccountSelection() {
         </a>
       </InfoCard>
 
-      <div className="pt-1">
-        <Button
-          fullWidth
-          disabled={!canProceed}
-          onClick={handleNext}
-          loading={state.isLoadingPositions}
-        >
-          Next
-        </Button>
-      </div>
-
-      <div className="text-center">
+      <div className="text-center pt-2 pb-1">
         <a href="#" className="text-[13px] text-questrade-green underline">
           View disclosure
         </a>

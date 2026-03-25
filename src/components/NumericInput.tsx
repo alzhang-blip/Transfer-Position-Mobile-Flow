@@ -95,11 +95,6 @@ export function NumericInput({
       {pasteHint && !errorMessage && (
         <p className="text-[11px] text-yellow-700 mt-0.5 text-right">{pasteHint}</p>
       )}
-      {disabled && disabledReason && !errorMessage && (
-        <p className="text-[11px] text-questrade-grey-400 mt-0.5 text-right max-w-[100px]">
-          {disabledReason}
-        </p>
-      )}
     </div>
   );
 }
