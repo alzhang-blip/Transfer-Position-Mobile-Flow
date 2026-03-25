@@ -2,8 +2,6 @@ import { useCallback, useMemo, useState } from 'react';
 import { useTransfer } from '../context/TransferContext';
 import { Button } from '../components/Button';
 import { InfoBanner } from '../components/InfoBanner';
-import { InfoCard } from '../components/InfoCard';
-import { ContextualWarnings } from '../components/ContextualWarnings';
 import { PositionRow } from '../components/PositionRow';
 import { SkeletonLoader } from '../components/SkeletonLoader';
 import { EmptyState } from '../components/EmptyState';
@@ -83,164 +81,117 @@ export function PositionSelection() {
     if (state.fromAccount) loadPositions(state.fromAccount.accountId);
   }, [state.fromAccount, loadPositions]);
 
-  // ── Loading ──────────────────────────
   if (state.isLoadingPositions) {
-    return (
-      <div className="space-y-4">
-        <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
-        <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
-        <SkeletonLoader rows={4} />
-      </div>
-    );
+    return <SkeletonLoader rows={5} />;
   }
 
-  // ── Error ────────────────────────────
   if (state.positionsError) {
     return (
-      <div className="space-y-4">
-        <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
-        <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
-        <ErrorState
-          message="We couldn't load your positions. Check your connection and try again."
-          onRetry={handleRetryPositions}
-        />
-      </div>
+      <ErrorState
+        message="We couldn't load your positions. Check your connection and try again."
+        onRetry={handleRetryPositions}
+      />
     );
   }
 
-  // ── Empty ────────────────────────────
   if (state.positions.length === 0) {
-    return (
-      <div className="space-y-4">
-        <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
-        <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
-        <EmptyState title="No positions to transfer" description="This account has no positions to transfer." />
-      </div>
-    );
+    return <EmptyState title="No positions to transfer" description="This account has no positions to transfer." />;
   }
 
-  // ── All fractional ───────────────────
   if (allFractionalOnly) {
     return (
-      <div className="space-y-4">
-        <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
-        <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
-        <EmptyState
-          title="All positions are fractional"
-          description="Contact support at 1-(888)-783-7866 to transfer fractional shares."
-        />
-      </div>
+      <EmptyState
+        title="All positions are fractional"
+        description="Contact support at 1-(888)-783-7866 to transfer fractional shares."
+      />
     );
   }
 
-  // ── All FHSA restricted ──────────────
   if (allFhsaRestricted) {
     return (
-      <div className="space-y-4">
-        <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
-        <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
-        <EmptyState
-          title="No eligible positions"
-          description="None of these positions can be transferred to an FHSA. Mutual funds are not eligible."
-        />
-      </div>
+      <EmptyState
+        title="No eligible positions"
+        description="None of these positions can be transferred to an FHSA. Mutual funds are not eligible."
+      />
     );
   }
 
-  // ── Main ─────────────────────────────
   return (
     <div className="flex flex-col">
-      <div className="space-y-4 flex-1">
-        <ReadOnlyField label="From account" value={state.fromAccount?.displayName ?? ''} />
-        <ReadOnlyField label="To account" value={state.toAccount?.displayName ?? ''} />
-
-        {/* Positions section */}
-        <div>
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[15px] font-semibold text-questrade-grey-900">Positions</span>
-              <span className="text-[12px] text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
-                {state.positions.length}
+      <div className="flex-1">
+        {/* Positions header */}
+        <div className="flex items-center justify-between mb-2">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="text-[15px] font-semibold text-questrade-grey-900">Positions</span>
+            <span className="text-[12px] text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
+              {state.positions.length}
+            </span>
+            {selectedCount > 0 && (
+              <span className="text-[12px] text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full font-medium">
+                {selectedCount} selected
               </span>
-              {selectedCount > 0 && (
-                <span className="text-[12px] text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full font-medium">
-                  {selectedCount} selected
-                </span>
-              )}
-            </div>
-            <button
-              type="button"
-              onClick={handleMaxAll}
-              disabled={state.isLoadingPositions}
-              className="text-[13px] font-medium text-questrade-green hover:underline disabled:opacity-50"
-              aria-label="Max all units. Fills in maximum transferable units for all positions."
-            >
-              Max all units
-            </button>
+            )}
           </div>
+          <button
+            type="button"
+            onClick={handleMaxAll}
+            disabled={state.isLoadingPositions}
+            className="text-[13px] font-medium text-questrade-green hover:underline disabled:opacity-50"
+            aria-label="Max all units. Fills in maximum transferable units for all positions."
+          >
+            Max all units
+          </button>
+        </div>
 
-          {hasFractionalShares && (
+        {hasFractionalShares && (
+          <div className="mb-2">
             <InfoBanner variant="blue">
               <div className="flex items-start gap-1.5">
                 <InfoIcon />
                 <span>To transfer fractional shares, contact support at 1-(888)-783-7866.</span>
               </div>
             </InfoBanner>
-          )}
-
-          {isFhsaDestination && fhsaDisabledSymbols.size > 0 && !allFhsaRestricted && (
-            <div className="mt-1.5">
-              <InfoBanner variant="yellow">
-                Mutual fund positions are not eligible for transfer to an FHSA.
-              </InfoBanner>
-            </div>
-          )}
-
-          {state.positions.length > 10 && (
-            <div className="mt-2 mb-1.5">
-              <input
-                type="text"
-                placeholder="Search by ticker or name..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 text-[14px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
-                aria-label="Search positions"
-              />
-            </div>
-          )}
-
-          <div className="position-list border border-questrade-grey-200 rounded-xl overflow-hidden mt-2 max-h-[280px] overflow-y-auto bg-white">
-            {filteredPositions.length === 0 ? (
-              <div className="py-6 text-center text-questrade-grey-400 text-[14px]">
-                {searchQuery ? 'No positions match your search.' : 'No positions available.'}
-              </div>
-            ) : (
-              filteredPositions.map((position) => (
-                <PositionRow
-                  key={position.symbol}
-                  position={position}
-                  units={state.unitEntries[position.symbol] ?? 0}
-                  onUnitsChange={(units) => handleUnitsChange(position.symbol, units)}
-                  isFhsaRestricted={fhsaDisabledSymbols.has(position.symbol)}
-                />
-              ))
-            )}
           </div>
+        )}
+
+        {isFhsaDestination && fhsaDisabledSymbols.size > 0 && !allFhsaRestricted && (
+          <div className="mb-2">
+            <InfoBanner variant="yellow">
+              Mutual fund positions are not eligible for transfer to an FHSA.
+            </InfoBanner>
+          </div>
+        )}
+
+        {state.positions.length > 10 && (
+          <div className="mb-2">
+            <input
+              type="text"
+              placeholder="Search by ticker or name..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 text-[14px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
+              aria-label="Search positions"
+            />
+          </div>
+        )}
+
+        <div className="position-list border border-questrade-grey-200 rounded-xl overflow-hidden max-h-[400px] overflow-y-auto bg-white">
+          {filteredPositions.length === 0 ? (
+            <div className="py-6 text-center text-questrade-grey-400 text-[14px]">
+              {searchQuery ? 'No positions match your search.' : 'No positions available.'}
+            </div>
+          ) : (
+            filteredPositions.map((position) => (
+              <PositionRow
+                key={position.symbol}
+                position={position}
+                units={state.unitEntries[position.symbol] ?? 0}
+                onUnitsChange={(units) => handleUnitsChange(position.symbol, units)}
+                isFhsaRestricted={fhsaDisabledSymbols.has(position.symbol)}
+              />
+            ))
+          )}
         </div>
-
-        <InfoBanner>
-          All positions will be valued and transferred based on the closing market price of the
-          day the request is created.
-        </InfoBanner>
-
-        <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
-
-        <InfoCard variant="info" title="Self-directed accounts only">
-          You cannot directly transfer positions with a Questwealth account.{' '}
-          <a href="#" className="text-questrade-green underline font-medium">
-            Learn available ways to transfer with Questwealth accounts.
-          </a>
-        </InfoCard>
       </div>
 
       {/* Sticky footer */}
@@ -253,23 +204,6 @@ export function PositionSelection() {
             Enter units for at least one position to continue.
           </p>
         )}
-      </div>
-
-      <div className="text-center pt-0.5 pb-1.5">
-        <a href="#" className="text-[13px] text-questrade-green underline">
-          View disclosure
-        </a>
-      </div>
-    </div>
-  );
-}
-
-function ReadOnlyField({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <label className="block text-[13px] font-medium text-questrade-grey-600 mb-1">{label}</label>
-      <div className="w-full rounded-xl border border-questrade-grey-200 bg-questrade-grey-50 px-3 py-2 text-[15px] text-questrade-grey-700">
-        {value}
       </div>
     </div>
   );

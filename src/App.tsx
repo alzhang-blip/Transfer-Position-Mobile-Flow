@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { TransferProvider, useTransfer } from './context/TransferContext';
 import { IPhoneFrame } from './components/IPhoneFrame';
 import { OfflineBanner } from './components/OfflineBanner';
@@ -12,6 +13,19 @@ import { SuccessModal } from './modals/SuccessModal';
 function TransferFlow() {
   const { state, goBackToAccountSelection, requestLeave, done } = useTransfer();
 
+  const prevStepRef = useRef(state.step);
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
+  const [slideKey, setSlideKey] = useState(0);
+
+  useEffect(() => {
+    if (prevStepRef.current !== state.step) {
+      const isForward = state.step === 'position-selection';
+      setSlideDirection(isForward ? 'left' : 'right');
+      setSlideKey((k) => k + 1);
+      prevStepRef.current = state.step;
+    }
+  }, [state.step]);
+
   const handleBack = () => {
     if (state.step === 'position-selection') {
       if (state.hasUnsavedData) {
@@ -24,13 +38,11 @@ function TransferFlow() {
     }
   };
 
-  const handleExitFlow = () => {
-    if (state.step === 'position-selection' && state.hasUnsavedData) {
-      requestLeave();
-    } else {
-      done();
-    }
-  };
+  const slideClass = slideDirection === 'left'
+    ? 'animate-slideInLeft'
+    : slideDirection === 'right'
+      ? 'animate-slideInRight'
+      : '';
 
   return (
     <>
@@ -68,10 +80,12 @@ function TransferFlow() {
         </p>
       </header>
 
-      {/* Content */}
-      <main className="flex-1 px-3.5 py-3">
-        {state.step === 'account-selection' && <AccountSelection />}
-        {state.step === 'position-selection' && <PositionSelection />}
+      {/* Content with slide transition */}
+      <main className="flex-1 px-3.5 py-3 overflow-hidden">
+        <div key={slideKey} className={slideClass}>
+          {state.step === 'account-selection' && <AccountSelection />}
+          {state.step === 'position-selection' && <PositionSelection />}
+        </div>
       </main>
 
       <ReviewConfirmModal />
