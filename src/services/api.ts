@@ -1,5 +1,5 @@
-import type { Account, Position, TransferRequest, TransferResponse } from '../types';
-import { mockAccounts, mockPositionsByAccount } from './mockData';
+import type { Account, Position, TransferRequest, TransferResponse, TransferHistoryRecord, TransferComment } from '../types';
+import { mockAccounts, mockPositionsByAccount, mockTransferHistory, mockCommentsByTransfer } from './mockData';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -128,4 +128,58 @@ export async function submitTransfer(request: TransferRequest): Promise<Transfer
     }
     throw err;
   }
+}
+
+const historyState = [...mockTransferHistory];
+
+export async function fetchTransferHistory(
+  startDate: string,
+  endDate: string,
+): Promise<TransferHistoryRecord[]> {
+  await delay(700);
+  return historyState.filter((t) => t.date >= startDate && t.date <= endDate);
+}
+
+export async function cancelTransferRequest(
+  refId: string,
+): Promise<{ success: boolean; message?: string }> {
+  await delay(1000);
+  const record = historyState.find((t) => t.refId === refId);
+  if (!record) {
+    return { success: false, message: 'Transfer not found.' };
+  }
+  if (record.status !== 'Active') {
+    return { success: false, message: 'This transfer can no longer be cancelled.' };
+  }
+  record.status = 'Cancelled';
+  record.isCancellable = false;
+  return { success: true };
+}
+
+export function addTransferToHistory(record: TransferHistoryRecord) {
+  historyState.unshift(record);
+}
+
+const commentsState: Record<string, TransferComment[]> = { ...mockCommentsByTransfer };
+
+export async function fetchTransferComments(
+  refId: string,
+): Promise<TransferComment[]> {
+  await delay(500);
+  return commentsState[refId] ?? [];
+}
+
+export async function markCommentsAsRead(
+  refId: string,
+): Promise<{ success: boolean }> {
+  await delay(200);
+  const comments = commentsState[refId];
+  if (comments) {
+    comments.forEach((c) => { c.isRead = true; });
+  }
+  const record = historyState.find((r) => r.refId === refId);
+  if (record) {
+    record.unreadCommentCount = 0;
+  }
+  return { success: true };
 }

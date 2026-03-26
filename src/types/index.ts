@@ -55,6 +55,36 @@ export interface ToastMessage {
   variant: 'info' | 'error' | 'success';
 }
 
+export type TransferHistoryStatus = 'Active' | 'Pending approval' | 'Completed' | 'Cancelled' | 'Failed';
+
+export interface TransferHistoryRecord {
+  refId: string;
+  date: string;
+  symbol: string;
+  qty: number;
+  fromAccount: string;
+  toAccount: string;
+  status: TransferHistoryStatus;
+  isCancellable: boolean;
+  hasComments: boolean;
+  unreadCommentCount: number;
+}
+
+export interface CommentActionRequired {
+  description: string;
+  deepLink: string | null;
+  isCompleted: boolean;
+}
+
+export interface TransferComment {
+  commentId: string;
+  agentName: string;
+  body: string;
+  createdAt: string;
+  isRead: boolean;
+  actionRequired: CommentActionRequired | null;
+}
+
 export interface TransferState {
   step: TransferStep;
   modalState: ModalState;

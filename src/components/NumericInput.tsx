@@ -75,21 +75,20 @@ export function NumericInput({
           aria-invalid={!!errorMessage}
           aria-describedby={errorMessage ? `${ariaLabel}-error` : undefined}
           maxLength={10}
-          className={`w-16 rounded-xl border px-2 py-1.5 text-right text-[16px] transition-colors
+          className={`w-16 rounded-xl border px-2 py-1.5 text-right type-input transition-colors
             ${errorMessage ? 'border-red-400 bg-red-50 text-red-700' : 'border-questrade-grey-300 bg-white text-questrade-grey-900'}
             ${disabled ? 'bg-questrade-grey-100 opacity-60 cursor-not-allowed' : 'focus:border-questrade-green focus:ring-1 focus:ring-questrade-green'}
             focus:outline-none
           `}
         />
-        <span className="text-[14px] text-questrade-grey-400">units</span>
       </div>
       {errorMessage && (
-        <p className="text-[12px] text-red-600 mt-0.5 text-right" role="alert" id={`${ariaLabel}-error`}>
+        <p className="type-error text-red-600 mt-0.5 text-right" role="alert" id={`${ariaLabel}-error`}>
           {errorMessage}
         </p>
       )}
       {pasteHint && !errorMessage && (
-        <p className="text-[12px] text-yellow-700 mt-0.5 text-right">{pasteHint}</p>
+        <p className="type-error text-yellow-700 mt-0.5 text-right">{pasteHint}</p>
       )}
     </div>
   );

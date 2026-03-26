@@ -73,13 +73,13 @@ export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted =
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="font-bold text-questrade-grey-900 text-[15px] leading-tight">
+          <span className="type-ticker text-questrade-grey-900">
             {position.symbol}
           </span>
           {getUnitsBadge(position)}
           {isFhsaRestricted && <Badge variant="grey">Not FHSA eligible</Badge>}
         </div>
-        <p className="text-[13px] text-questrade-grey-400 truncate mt-0.5 leading-snug" title={position.companyName}>
+        <p className="type-body-md text-questrade-grey-400 truncate mt-0.5" title={position.companyName}>
           {position.companyName}
         </p>
       </div>

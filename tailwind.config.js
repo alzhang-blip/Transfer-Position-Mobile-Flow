@@ -29,15 +29,8 @@ export default {
         },
       },
       fontFamily: {
-        sans: [
-          '-apple-system',
-          'BlinkMacSystemFont',
-          'Segoe UI',
-          'Roboto',
-          'Helvetica Neue',
-          'Arial',
-          'sans-serif',
-        ],
+        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
+        sans: ['"DM Sans"', 'system-ui', '-apple-system', 'Roboto', 'sans-serif'],
       },
       maxWidth: {
         mobile: '428px',

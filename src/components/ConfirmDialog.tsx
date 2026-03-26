@@ -23,10 +23,10 @@ export function ConfirmDialog() {
           />
         </svg>
 
-        <h2 className="text-[18px] font-bold text-questrade-grey-900 mb-1.5">
+        <h2 className="type-display-sm text-questrade-grey-900 mb-1.5">
           Are you sure you want to leave?
         </h2>
-        <p className="text-[15px] text-questrade-grey-500 mb-4">
+        <p className="type-body-lg text-questrade-grey-500 mb-4">
           Your transfer details will not be saved.
         </p>
 

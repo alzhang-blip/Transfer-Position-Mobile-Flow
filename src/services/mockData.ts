@@ -1,4 +1,4 @@
-import type { Account, Position } from '../types';
+import type { Account, Position, TransferHistoryRecord, TransferComment } from '../types';
 
 export const mockAccounts: Account[] = [
   {
@@ -247,4 +247,106 @@ export const mockPositionsByAccount: Record<string, Position[]> = {
   '29700285': [],
   '29700277': [],
   '53600481': [],
+};
+
+export const mockTransferHistory: TransferHistoryRecord[] = [
+  { refId: 'CC35485712', date: '2026-03-25', symbol: 'ZTS', qty: 1, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Active', isCancellable: true, hasComments: true, unreadCommentCount: 1 },
+  { refId: 'CC35485711', date: '2026-03-25', symbol: 'ABC', qty: 10, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Pending approval', isCancellable: false, hasComments: true, unreadCommentCount: 2 },
+  { refId: 'CC35485657', date: '2026-03-25', symbol: 'AMD', qty: 1, fromAccount: '51875883-13', toAccount: '52024850-16', status: 'Pending approval', isCancellable: false, hasComments: false, unreadCommentCount: 0 },
+  { refId: 'CC35485658', date: '2026-03-25', symbol: 'ARGX', qty: 1, fromAccount: '51875883-13', toAccount: '52024850-16', status: 'Pending approval', isCancellable: false, hasComments: false, unreadCommentCount: 0 },
+  { refId: 'CC35485597', date: '2026-03-24', symbol: '8T27035.90', qty: 1, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Active', isCancellable: true, hasComments: true, unreadCommentCount: 0 },
+  { refId: 'CC35485291', date: '2026-03-18', symbol: '8T27035.90', qty: 1, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Active', isCancellable: true, hasComments: false, unreadCommentCount: 0 },
+  { refId: 'CC35484874', date: '2026-03-13', symbol: 'AAPL', qty: 1, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Active', isCancellable: true, hasComments: true, unreadCommentCount: 0 },
+  { refId: 'CC35484870', date: '2026-03-13', symbol: '8T27035.90', qty: 1, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Active', isCancellable: true, hasComments: false, unreadCommentCount: 0 },
+  { refId: 'CC35484867', date: '2026-03-13', symbol: 'AAPL', qty: 1, fromAccount: '51875883-13', toAccount: '28340331-24', status: 'Active', isCancellable: true, hasComments: false, unreadCommentCount: 0 },
+  { refId: 'CC35484500', date: '2026-02-28', symbol: 'MSFT', qty: 5, fromAccount: '52024850-16', toAccount: '53600583-08', status: 'Completed', isCancellable: false, hasComments: true, unreadCommentCount: 0 },
+  { refId: 'CC35484200', date: '2026-02-15', symbol: 'GOOGL', qty: 3, fromAccount: '28340331-24', toAccount: '51875883-13', status: 'Cancelled', isCancellable: false, hasComments: true, unreadCommentCount: 1 },
+  { refId: 'CC35483900', date: '2026-01-20', symbol: 'TSLA', qty: 2, fromAccount: '53600583-08', toAccount: '28340331-24', status: 'Failed', isCancellable: false, hasComments: false, unreadCommentCount: 0 },
+];
+
+export const mockCommentsByTransfer: Record<string, TransferComment[]> = {
+  CC35485712: [
+    {
+      commentId: 'cmt-001',
+      agentName: 'Questrade customer service',
+      body: 'Hello',
+      createdAt: '2026-03-25T18:03:14Z',
+      isRead: false,
+      actionRequired: null,
+    },
+  ],
+  CC35485711: [
+    {
+      commentId: 'cmt-010',
+      agentName: 'Questrade Operations',
+      body: 'We are reviewing your transfer request for 10 units of ABC. Please allow 1-2 business days for processing.',
+      createdAt: '2026-03-25T09:15:00Z',
+      isRead: false,
+      actionRequired: null,
+    },
+    {
+      commentId: 'cmt-011',
+      agentName: 'Transfer Team',
+      body: 'We need a signed Letter of Direction to process this transfer. Please upload the document at your earliest convenience.',
+      createdAt: '2026-03-25T14:30:00Z',
+      isRead: false,
+      actionRequired: {
+        description: 'Upload a Letter of Direction',
+        deepLink: 'questrade://upload-document?ref=CC35485711',
+        isCompleted: false,
+      },
+    },
+  ],
+  CC35485597: [
+    {
+      commentId: 'cmt-020',
+      agentName: 'Questrade Operations',
+      body: 'Your transfer is being processed. We noticed this is a fixed-income security — additional settlement time may apply.',
+      createdAt: '2026-03-24T11:00:00Z',
+      isRead: true,
+      actionRequired: null,
+    },
+    {
+      commentId: 'cmt-021',
+      agentName: 'Transfer Team',
+      body: 'We require verification of the bond holding. Please confirm the CUSIP and face value by contacting support or uploading documentation.\n\nFor more details visit: https://www.questrade.com/support',
+      createdAt: '2026-03-24T16:45:00Z',
+      isRead: true,
+      actionRequired: {
+        description: 'Verify bond holding details',
+        deepLink: null,
+        isCompleted: true,
+      },
+    },
+  ],
+  CC35484874: [
+    {
+      commentId: 'cmt-030',
+      agentName: 'Questrade Operations',
+      body: 'Your AAPL transfer has been queued for processing. Expected completion within 3 business days.',
+      createdAt: '2026-03-13T10:00:00Z',
+      isRead: true,
+      actionRequired: null,
+    },
+  ],
+  CC35484500: [
+    {
+      commentId: 'cmt-040',
+      agentName: 'Questrade Operations',
+      body: 'Your MSFT transfer has been completed successfully. 5 units have been moved to account 53600583-08.',
+      createdAt: '2026-02-28T15:00:00Z',
+      isRead: true,
+      actionRequired: null,
+    },
+  ],
+  CC35484200: [
+    {
+      commentId: 'cmt-050',
+      agentName: 'Transfer Team',
+      body: 'This transfer was cancelled at your request. If you did not request cancellation, please contact us immediately at 1-888-783-7866.',
+      createdAt: '2026-02-16T09:30:00Z',
+      isRead: false,
+      actionRequired: null,
+    },
+  ],
 };

@@ -103,12 +103,12 @@ export function PositionSelection() {
         {/* Positions header */}
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-[16px] font-semibold text-questrade-grey-900">Positions</span>
-            <span className="text-[13px] text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
+            <span className="type-heading-md text-questrade-grey-900">Positions</span>
+            <span className="type-label-sm text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
               {state.positions.length}
             </span>
             {selectedCount > 0 && (
-              <span className="text-[13px] text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full font-medium">
+              <span className="type-label-sm text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full">
                 {selectedCount} selected
               </span>
             )}
@@ -118,7 +118,7 @@ export function PositionSelection() {
               <button
                 type="button"
                 onClick={clearAllUnits}
-                className="text-[14px] font-medium text-questrade-grey-500 hover:underline"
+                className="type-label-md text-questrade-grey-500 hover:underline"
                 aria-label="Clear all entered units"
               >
                 Clear
@@ -128,7 +128,7 @@ export function PositionSelection() {
               type="button"
               onClick={handleMaxAll}
               disabled={state.isLoadingPositions}
-              className="text-[14px] font-medium text-questrade-green hover:underline disabled:opacity-50"
+              className="type-label-md text-questrade-green hover:underline disabled:opacity-50"
               aria-label="Max all units. Fills in maximum transferable units for all positions."
             >
               Max all units
@@ -151,7 +151,7 @@ export function PositionSelection() {
               placeholder="Search by ticker or name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 text-[15px] focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
+              className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 type-input focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
               aria-label="Search positions"
             />
           </div>
@@ -159,7 +159,7 @@ export function PositionSelection() {
 
         <div className="position-list border border-questrade-grey-200 rounded-xl overflow-hidden max-h-[400px] overflow-y-auto bg-white">
           {filteredPositions.length === 0 ? (
-            <div className="py-6 text-center text-questrade-grey-400 text-[15px]">
+            <div className="py-6 text-center text-questrade-grey-400 type-body-lg">
               {searchQuery ? 'No positions match your search.' : 'No positions available.'}
             </div>
           ) : (
@@ -190,7 +190,7 @@ export function PositionSelection() {
       </div>
 
       <div className="text-center pt-3 pb-1">
-        <a href="#" className="text-[14px] text-questrade-green underline">
+        <a href="#" className="type-body-sm text-questrade-green underline">
           View disclosure
         </a>
       </div>

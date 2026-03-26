@@ -2,8 +2,17 @@ import { useTransfer } from '../context/TransferContext';
 import { Modal } from '../components/Modal';
 import { Button } from '../components/Button';
 
-export function SuccessModal() {
+interface SuccessModalProps {
+  onNavigateToHistory: () => void;
+}
+
+export function SuccessModal({ onNavigateToHistory }: SuccessModalProps) {
   const { state, done } = useTransfer();
+
+  const handleViewHistory = () => {
+    done();
+    onNavigateToHistory();
+  };
 
   return (
     <Modal isOpen={state.modalState === 'success'} onClose={done} variant="center">
@@ -12,13 +21,13 @@ export function SuccessModal() {
           <HourglassIllustration />
         </div>
 
-        <h2 className="text-[18px] font-bold text-questrade-grey-900 mb-2">
+        <h2 className="type-display-md text-questrade-grey-900 mb-2">
           Your transfer is being processed
         </h2>
 
-        <p className="text-[15px] text-questrade-grey-500 leading-relaxed mb-5">
+        <p className="type-body-lg text-questrade-grey-500 mb-5">
           We've received your request. Monitor progress in your{' '}
-          <button type="button" onClick={done} className="text-questrade-green font-semibold underline">
+          <button type="button" onClick={handleViewHistory} className="text-questrade-green font-semibold underline">
             Transfer investments history
           </button>
           .

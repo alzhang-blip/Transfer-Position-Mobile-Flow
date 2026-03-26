@@ -13,8 +13,8 @@ export function EmptyState({ icon, title, description, actionLabel, onAction }: 
   return (
     <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
       {icon && <div className="mb-3 text-questrade-grey-400">{icon}</div>}
-      <h3 className="text-[16px] font-bold text-questrade-grey-900 mb-1">{title}</h3>
-      <p className="text-[14px] text-questrade-grey-500 leading-relaxed mb-4 max-w-[240px]">
+      <h3 className="type-heading-lg text-questrade-grey-900 mb-1">{title}</h3>
+      <p className="type-body-lg text-questrade-grey-500 leading-relaxed mb-4 max-w-[240px]">
         {description}
       </p>
       {actionLabel && onAction && (

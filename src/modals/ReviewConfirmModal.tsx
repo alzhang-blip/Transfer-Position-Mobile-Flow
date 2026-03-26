@@ -25,14 +25,14 @@ export function ReviewConfirmModal() {
   return (
     <Modal isOpen={state.modalState === 'review'} onClose={state.isSubmitting ? undefined : closeModal} variant="bottom-sheet">
       <div className="px-5 py-4">
-        <h2 className="text-[19px] font-bold text-questrade-grey-900 mb-4">Review and confirm</h2>
+        <h2 className="type-display-md text-questrade-grey-900 mb-4">Review and confirm</h2>
 
         <div className="space-y-3.5">
           <div>
-            <p className="text-[13px] font-medium text-questrade-green mb-0.5 uppercase tracking-wide">
+            <p className="type-heading-sm text-questrade-green mb-0.5 uppercase tracking-wide">
             From Questrade account
             </p>
-            <p className="text-[16px] text-questrade-grey-900 font-medium">
+            <p className="type-body-lg text-questrade-grey-900">
               {state.fromAccount?.displayName}
             </p>
           </div>
@@ -40,10 +40,10 @@ export function ReviewConfirmModal() {
           <hr className="border-questrade-grey-100" />
 
           <div>
-            <p className="text-[13px] font-medium text-questrade-green mb-0.5 uppercase tracking-wide">
+            <p className="type-heading-sm text-questrade-green mb-0.5 uppercase tracking-wide">
             To Questrade account
             </p>
-            <p className="text-[16px] text-questrade-grey-900 font-medium">
+            <p className="type-body-lg text-questrade-grey-900">
               {state.toAccount?.displayName}
             </p>
           </div>
@@ -51,17 +51,17 @@ export function ReviewConfirmModal() {
           <hr className="border-questrade-grey-100" />
 
           <div>
-            <div className="flex items-center justify-between text-[13px] font-medium text-questrade-grey-400 mb-2 uppercase tracking-wide">
+            <div className="flex items-center justify-between type-heading-sm text-questrade-grey-400 mb-2 uppercase tracking-wide">
               <span>Position</span>
               <span>Qty</span>
             </div>
             <div className="space-y-2.5 max-h-40 overflow-y-auto">
               {positionsToTransfer.map(({ symbol, units }) => (
                 <div key={symbol} className="flex items-center justify-between gap-3">
-                  <span className="text-[15px] text-questrade-grey-900 font-bold">
+                  <span className="type-body-md text-questrade-grey-900 font-bold">
                     {symbol}
                   </span>
-                  <span className="text-[15px] text-questrade-grey-900 font-medium whitespace-nowrap pt-px">
+                  <span className="type-body-md text-questrade-grey-900 whitespace-nowrap pt-px">
                     {units} {units === 1 ? 'unit' : 'units'}
                   </span>
                 </div>

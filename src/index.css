@@ -18,7 +18,7 @@
   }
 
   body {
-    font-family: 'Lora', Georgia, 'Times New Roman', Times, serif;
+    font-family: 'DM Sans', system-ui, -apple-system, Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -29,6 +29,29 @@
     margin: 0;
   }
 }
+
+/* ──────────────────────────────────────────────────
+   Typography tokens
+   ────────────────────────────────────────────────── */
+.type-display-lg   { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 28px; line-height: 1.25; letter-spacing: -0.02em; }
+.type-display-md   { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 24px; line-height: 1.25; letter-spacing: -0.01em; }
+.type-display-sm   { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; font-size: 20px; line-height: 1.3;  letter-spacing: 0; }
+
+.type-heading-lg   { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 18px; line-height: 1.35; letter-spacing: 0; }
+.type-heading-md   { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 16px; line-height: 1.35; letter-spacing: 0; }
+.type-heading-sm   { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 600; font-size: 14px; line-height: 1.4;  letter-spacing: 0; }
+
+.type-body-lg      { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 400; font-size: 16px; line-height: 1.5;  letter-spacing: 0; }
+.type-body-md      { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 400; font-size: 14px; line-height: 1.45; letter-spacing: 0; }
+.type-body-sm      { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 400; font-size: 12px; line-height: 1.4;  letter-spacing: 0.01em; }
+
+.type-label-lg     { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 500; font-size: 16px; line-height: 1.35; letter-spacing: 0; }
+.type-label-md     { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 500; font-size: 14px; line-height: 1.35; letter-spacing: 0.01em; }
+.type-label-sm     { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 500; font-size: 12px; line-height: 1.35; letter-spacing: 0.02em; }
+
+.type-ticker       { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 700; font-size: 16px; line-height: 1.35; letter-spacing: 0.02em; }
+.type-input        { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 400; font-size: 16px; line-height: 1.35; letter-spacing: 0; }
+.type-error        { font-family: 'DM Sans', system-ui, sans-serif; font-weight: 500; font-size: 12px; line-height: 1.4;  letter-spacing: 0; }
 
 /* Position list: thin inset scrollbar that doesn't break rounded corners */
 .position-list {

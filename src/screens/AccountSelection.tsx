@@ -110,7 +110,7 @@ export function AccountSelection() {
       </InfoCard>
 
       <div className="text-center pt-2 pb-1">
-<a href="#" className="text-[14px] text-questrade-green underline">
+<a href="#" className="type-body-sm text-questrade-green underline">
             View disclosure
         </a>
       </div>
@@ -121,7 +121,7 @@ export function AccountSelection() {
 function DropdownSkeleton({ label }: { label: string }) {
   return (
     <div className="animate-pulse">
-      <p className="text-[14px] font-medium text-questrade-grey-600 mb-1">{label}</p>
+      <p className="type-heading-md text-questrade-grey-600 mb-1">{label}</p>
       <div className="h-10 bg-questrade-grey-200 rounded-xl" />
     </div>
   );

@@ -5,9 +5,10 @@ interface ModalProps {
   onClose?: () => void;
   children: ReactNode;
   variant?: 'bottom-sheet' | 'center';
+  maxHeight?: string;
 }
 
-export function Modal({ isOpen, onClose, children, variant = 'bottom-sheet' }: ModalProps) {
+export function Modal({ isOpen, onClose, children, variant = 'bottom-sheet', maxHeight }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -54,9 +55,12 @@ export function Modal({ isOpen, onClose, children, variant = 'bottom-sheet' }: M
   const positionClasses =
     variant === 'bottom-sheet' ? 'items-end' : 'items-center';
 
+  const defaultMaxH = variant === 'bottom-sheet' ? '80%' : undefined;
+  const resolvedMaxH = maxHeight || defaultMaxH;
+
   const contentClasses =
     variant === 'bottom-sheet'
-      ? 'w-full rounded-t-2xl max-h-[80%]'
+      ? 'w-full rounded-t-2xl'
       : 'w-[88%] rounded-2xl';
 
   return (
@@ -71,6 +75,7 @@ export function Modal({ isOpen, onClose, children, variant = 'bottom-sheet' }: M
         ref={contentRef}
         tabIndex={-1}
         className={`${contentClasses} bg-white shadow-2xl overflow-y-auto animate-slideUp focus:outline-none`}
+        style={resolvedMaxH ? { maxHeight: resolvedMaxH } : undefined}
       >
         {children}
       </div>

@@ -17,7 +17,7 @@ import type {
   TransferState,
   TransferStep,
 } from '../types';
-import { fetchAccounts, fetchPositions, submitTransfer } from '../services/api';
+import { fetchAccounts, fetchPositions, submitTransfer, addTransferToHistory } from '../services/api';
 
 // ── Actions ──────────────────────────────────────────
 type Action =
@@ -305,6 +305,21 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       if (response.success) {
         dispatch({ type: 'SET_TRANSFER_ID', id: response.transferId! });
         dispatch({ type: 'SET_MODAL', modal: 'success' });
+        const today = new Date().toISOString().split('T')[0];
+        positionsToTransfer.forEach((p) => {
+          addTransferToHistory({
+            refId: response.transferId!,
+            date: today,
+            symbol: p.symbol,
+            qty: p.units,
+            fromAccount: state.fromAccount!.accountId,
+            toAccount: state.toAccount!.accountId,
+            status: 'Active',
+            isCancellable: true,
+            hasComments: false,
+            unreadCommentCount: 0,
+          });
+        });
       } else {
         dispatch({
           type: 'SET_ERROR',

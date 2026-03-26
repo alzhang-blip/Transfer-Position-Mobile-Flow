@@ -6,6 +6,7 @@ import { ToastContainer } from './components/Toast';
 import { ConfirmDialog } from './components/ConfirmDialog';
 import { AccountSelection } from './screens/AccountSelection';
 import { PositionSelection } from './screens/PositionSelection';
+import { TransferHistory } from './screens/TransferHistory';
 import { ReviewConfirmModal } from './modals/ReviewConfirmModal';
 import { ErrorModal } from './modals/ErrorModal';
 import { SuccessModal } from './modals/SuccessModal';
@@ -20,11 +21,13 @@ function TransferFlow() {
     openReviewModal,
     loadPositions,
     goToPositionSelection,
+    showToast,
   } = useTransfer();
 
   const prevStepRef = useRef(state.step);
   const [slideDirection, setSlideDirection] = useState<'left' | 'right' | null>(null);
   const [slideKey, setSlideKey] = useState(0);
+  const [showHistory, setShowHistory] = useState(false);
 
   useEffect(() => {
     if (prevStepRef.current !== state.step) {
@@ -74,6 +77,27 @@ function TransferFlow() {
     goToPositionSelection();
   };
 
+  const navigateToHistory = () => setShowHistory(true);
+  const navigateBackFromHistory = () => setShowHistory(false);
+  const closeFromHistory = () => {
+    setShowHistory(false);
+    done();
+  };
+
+  if (showHistory) {
+    return (
+      <>
+        <OfflineBanner />
+        <TransferHistory
+          onBack={navigateBackFromHistory}
+          onClose={closeFromHistory}
+          showToast={showToast}
+        />
+        <ToastContainer />
+      </>
+    );
+  }
+
   return (
     <>
       <OfflineBanner />
@@ -84,7 +108,7 @@ function TransferFlow() {
           <button
             type="button"
             onClick={handleBack}
-            className="flex items-center gap-1.5 text-[15px] text-questrade-green hover:underline"
+            className="flex items-center gap-1.5 type-label-md text-questrade-green hover:underline"
             aria-label="Go back"
           >
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -97,15 +121,26 @@ function TransferFlow() {
 
       {/* Header */}
       <header className="px-3.5 pt-4 pb-2 flex-shrink-0">
-        <h1 className="text-[24px] font-bold text-questrade-grey-900 leading-tight">
+        <h1 className="type-display-lg text-questrade-grey-900">
           Transfer investments
         </h1>
-        <p className="mt-2 text-[14px] text-questrade-grey-500 leading-relaxed">
+        <p className="mt-2 type-body-lg text-questrade-grey-500">
           Transfer investments between your Questrade Self-directed accounts. For
           transfers from another broker or financial institution, go to{' '}
           <a href="#" className="text-questrade-green font-medium underline">
             Transfer account to Questrade
           </a>
+          .
+        </p>
+        <p className="mt-1.5 type-body-lg text-questrade-grey-500">
+          To see the list of position transfer requests you have created, go to{' '}
+          <button
+            type="button"
+            onClick={navigateToHistory}
+            className="text-questrade-green font-medium underline"
+          >
+            Transfer investments history
+          </button>
           .
         </p>
       </header>
@@ -136,7 +171,7 @@ function TransferFlow() {
               Next
             </Button>
             {!hasSelectedPositions && state.positions.length > 0 && (
-              <p className="text-[13px] text-questrade-grey-400 text-center mt-1">
+              <p className="type-body-sm text-questrade-grey-400 text-center mt-1">
                 Enter units for at least one position.
               </p>
             )}
@@ -146,7 +181,7 @@ function TransferFlow() {
 
       <ReviewConfirmModal />
       <ErrorModal />
-      <SuccessModal />
+      <SuccessModal onNavigateToHistory={navigateToHistory} />
       <ConfirmDialog />
       <ToastContainer />
     </>
