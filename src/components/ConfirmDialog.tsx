@@ -7,7 +7,7 @@ export function ConfirmDialog() {
 
   return (
     <Modal isOpen={state.modalState === 'confirm-leave'} onClose={cancelLeave} variant="center">
-      <div className="px-5 py-5 text-center">
+      <div className="px-5 py-5 text-center bg-white">
         <svg
           className="mx-auto mb-3 h-8 w-8 text-yellow-500"
           fill="none"
@@ -23,10 +23,10 @@ export function ConfirmDialog() {
           />
         </svg>
 
-        <h2 className="type-display-sm text-questrade-grey-900 mb-1.5">
+        <h2 className="type-display-sm text-design-ink mb-1.5">
           Are you sure you want to leave?
         </h2>
-        <p className="type-body-lg text-questrade-grey-500 mb-4">
+        <p className="type-body-md text-design-muted mb-4 leading-relaxed">
           Your transfer details will not be saved.
         </p>
 

@@ -32,18 +32,12 @@ function getUnitsBadge(position: Position) {
       </Badge>
     );
   }
-  if (position.availableUnits <= 5) {
-    return (
-      <Badge variant="purple">
-        {position.availableUnits} {position.availableUnits === 1 ? 'unit' : 'units'}
-      </Badge>
-    );
-  }
-  return (
-    <Badge variant="green">
-      {position.availableUnits.toLocaleString()} units
-    </Badge>
-  );
+  const wholeUnits = Math.floor(position.availableUnits);
+  const label =
+    wholeUnits === 1
+      ? '1 unit'
+      : `${wholeUnits.toLocaleString()} units`;
+  return <Badge variant="green">{label}</Badge>;
 }
 
 export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted = false }: PositionRowProps) {
@@ -67,19 +61,19 @@ export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted =
 
   return (
     <div
-      className="flex items-start justify-between gap-2 py-2.5 px-3 border-b border-questrade-grey-100 last:border-b-0"
+      className="flex items-start justify-between gap-2 py-3 px-3.5 border-b border-design-border/80 last:border-b-0"
       role="group"
       aria-label={accessibleDescription}
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="type-ticker text-questrade-grey-900">
+          <span className="type-ticker text-design-ink">
             {position.symbol}
           </span>
           {getUnitsBadge(position)}
           {isFhsaRestricted && <Badge variant="grey">Not FHSA eligible</Badge>}
         </div>
-        <p className="type-body-md text-questrade-grey-400 truncate mt-0.5" title={position.companyName}>
+        <p className="type-body-md text-design-muted truncate mt-0.5" title={position.companyName}>
           {position.companyName}
         </p>
       </div>

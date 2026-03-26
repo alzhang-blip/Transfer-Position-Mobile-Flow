@@ -16,18 +16,18 @@ export function SuccessModal({ onNavigateToHistory }: SuccessModalProps) {
 
   return (
     <Modal isOpen={state.modalState === 'success'} onClose={done} variant="center">
-      <div className="px-5 py-5 text-center">
+      <div className="px-5 py-5 text-center bg-white">
         <div className="mx-auto mb-4">
           <HourglassIllustration />
         </div>
 
-        <h2 className="type-display-md text-questrade-grey-900 mb-2">
+        <h2 className="type-display-md text-design-ink mb-2">
           Your transfer is being processed
         </h2>
 
-        <p className="type-body-lg text-questrade-grey-500 mb-5">
+        <p className="type-body-md text-design-muted mb-5 leading-relaxed">
           We've received your request. Monitor progress in your{' '}
-          <button type="button" onClick={handleViewHistory} className="text-questrade-green font-semibold underline">
+          <button type="button" onClick={handleViewHistory} className="text-design-link font-semibold underline decoration-design-link/40 underline-offset-2">
             Transfer investments history
           </button>
           .

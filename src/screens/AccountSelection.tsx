@@ -37,7 +37,7 @@ export function AccountSelection() {
       <div className="space-y-4">
         <DropdownSkeleton label="From account" />
         <DropdownSkeleton label="To account" />
-        <div className="h-12 bg-questrade-grey-100 rounded-xl animate-pulse" />
+        <div className="h-12 bg-design-close rounded-2xl animate-pulse border border-design-border/50" />
       </div>
     );
   }
@@ -74,45 +74,49 @@ export function AccountSelection() {
   }
 
   return (
-    <div className="space-y-4">
-      <Dropdown
-        label="From account"
-        placeholder="Choose an account"
-        accounts={fromAccounts}
-        selectedAccount={state.fromAccount}
-        excludeAccountId={state.toAccount?.accountId}
-        onSelect={setFromAccount}
-        disabled={state.isOffline}
-      />
+    <div>
+      <div className="space-y-4">
+        <Dropdown
+          label="From account"
+          placeholder="Choose an account"
+          accounts={fromAccounts}
+          selectedAccount={state.fromAccount}
+          excludeAccountId={state.toAccount?.accountId}
+          onSelect={setFromAccount}
+          disabled={state.isOffline}
+        />
 
-      <Dropdown
-        label="To account"
-        placeholder="Choose an account"
-        accounts={selfDirectedAccounts}
-        selectedAccount={state.toAccount}
-        excludeAccountId={state.fromAccount?.accountId}
-        onSelect={setToAccount}
-        disabled={state.isOffline || !state.fromAccount}
-      />
+        <Dropdown
+          label="To account"
+          placeholder="Choose an account"
+          accounts={selfDirectedAccounts}
+          selectedAccount={state.toAccount}
+          excludeAccountId={state.fromAccount?.accountId}
+          onSelect={setToAccount}
+          disabled={state.isOffline || !state.fromAccount}
+        />
+      </div>
 
-      <InfoBanner>
-        All positions will be valued and transferred based on the closing market price of the
-        day the request is created.
-      </InfoBanner>
+      <div className="mt-6 space-y-4">
+        <InfoBanner>
+          All positions will be valued and transferred based on the closing market price of the
+          day the request is created.
+        </InfoBanner>
 
-      <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
+        <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
 
-      <InfoCard variant="info" title="Self-directed accounts only">
-        You cannot directly transfer positions with a Questwealth account.{' '}
-        <a href="#" className="text-questrade-green underline font-medium">
-          Learn available ways to transfer with Questwealth accounts.
-        </a>
-      </InfoCard>
+        <InfoCard variant="info" title="Self-directed accounts only">
+          You cannot directly transfer positions with a Questwealth account.{' '}
+          <a href="#" className="text-design-link underline font-medium decoration-design-link/40 underline-offset-2">
+            Learn available ways to transfer with Questwealth accounts.
+          </a>
+        </InfoCard>
 
-      <div className="text-center pt-2 pb-1">
-<a href="#" className="type-body-sm text-questrade-green underline">
+        <div className="text-center pt-2 pb-1">
+          <a href="#" className="type-body-sm text-design-link underline decoration-design-link/40 underline-offset-2">
             View disclosure
-        </a>
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -121,8 +125,8 @@ export function AccountSelection() {
 function DropdownSkeleton({ label }: { label: string }) {
   return (
     <div className="animate-pulse">
-      <p className="type-heading-md text-questrade-grey-600 mb-1">{label}</p>
-      <div className="h-10 bg-questrade-grey-200 rounded-xl" />
+      <p className="type-body-sm text-design-muted mb-1.5 font-medium">{label}</p>
+      <div className="h-10 bg-design-close rounded-lg border border-design-border" />
     </div>
   );
 }

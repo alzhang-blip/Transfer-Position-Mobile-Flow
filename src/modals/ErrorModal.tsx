@@ -60,16 +60,16 @@ export function ErrorModal() {
 
   return (
     <Modal isOpen={state.modalState === 'error'} onClose={tryAgain} variant="center">
-      <div className="px-5 py-5 text-center">
+      <div className="px-5 py-5 text-center bg-white">
         <div className="mx-auto mb-4">
           <SadDeviceIllustration />
         </div>
 
-        <h2 className="type-display-md text-questrade-grey-900 mb-2">
+        <h2 className="type-display-md text-design-ink mb-2">
           {config.title}
         </h2>
 
-        <p className="type-body-lg text-questrade-grey-500 mb-5">
+        <p className="type-body-md text-design-muted mb-5 leading-relaxed">
           {state.errorMessage ?? 'An unexpected error occurred. Please try again.'}
         </p>
 

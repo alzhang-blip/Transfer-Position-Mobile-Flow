@@ -75,9 +75,9 @@ export function NumericInput({
           aria-invalid={!!errorMessage}
           aria-describedby={errorMessage ? `${ariaLabel}-error` : undefined}
           maxLength={10}
-          className={`w-16 rounded-xl border px-2 py-1.5 text-right type-input transition-colors
-            ${errorMessage ? 'border-red-400 bg-red-50 text-red-700' : 'border-questrade-grey-300 bg-white text-questrade-grey-900'}
-            ${disabled ? 'bg-questrade-grey-100 opacity-60 cursor-not-allowed' : 'focus:border-questrade-green focus:ring-1 focus:ring-questrade-green'}
+          className={`w-16 rounded-lg border px-2 py-1.5 text-right type-input transition-colors
+            ${errorMessage ? 'border-red-400 bg-red-50 text-red-700' : 'border-design-border bg-white text-design-ink'}
+            ${disabled ? 'bg-[#F0F2F5] opacity-80 cursor-not-allowed' : 'focus:border-design-link focus:ring-1 focus:ring-design-link'}
             focus:outline-none
           `}
         />

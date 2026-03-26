@@ -4,6 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
+        design: {
+          canvas: '#F5F7F9',
+          surface: '#FFFFFF',
+          border: '#E1E5EA',
+          muted: '#707E94',
+          ink: '#2D2D2D',
+          primary: '#7D9A7D',
+          'primary-hover': '#6B8A6B',
+          'primary-dark': '#5A735A',
+          link: '#4F7D5C',
+          soft: '#EEF4EE',
+          close: '#E8EAEE',
+          'close-hover': '#DADEE5',
+        },
         questrade: {
           green: '#0A5F2C',
           'green-dark': '#084A22',
@@ -29,11 +43,15 @@ export default {
         },
       },
       fontFamily: {
-        display: ['"Libre Baskerville"', 'Georgia', 'serif'],
+        display: ['"DM Sans"', 'system-ui', '-apple-system', 'Roboto', 'sans-serif'],
         sans: ['"DM Sans"', 'system-ui', '-apple-system', 'Roboto', 'sans-serif'],
       },
       maxWidth: {
         mobile: '428px',
+      },
+      boxShadow: {
+        card: '0 2px 12px rgba(32, 36, 43, 0.06)',
+        lift: '0 4px 24px rgba(32, 36, 43, 0.08)',
       },
     },
   },

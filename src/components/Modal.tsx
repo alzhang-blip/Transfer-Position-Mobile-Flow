@@ -60,8 +60,8 @@ export function Modal({ isOpen, onClose, children, variant = 'bottom-sheet', max
 
   const contentClasses =
     variant === 'bottom-sheet'
-      ? 'w-full rounded-t-2xl'
-      : 'w-[88%] rounded-2xl';
+      ? 'w-full rounded-t-[1.25rem] shadow-lift border-t border-x border-design-border'
+      : 'w-[88%] rounded-2xl shadow-lift border border-design-border';
 
   return (
     <div
@@ -74,7 +74,7 @@ export function Modal({ isOpen, onClose, children, variant = 'bottom-sheet', max
       <div
         ref={contentRef}
         tabIndex={-1}
-        className={`${contentClasses} bg-white shadow-2xl overflow-y-auto animate-slideUp focus:outline-none`}
+        className={`${contentClasses} bg-white overflow-y-auto animate-slideUp focus:outline-none opacity-100`}
         style={resolvedMaxH ? { maxHeight: resolvedMaxH } : undefined}
       >
         {children}

@@ -83,14 +83,14 @@ export function Dropdown({
 
   return (
     <div ref={containerRef} className="relative">
-      <label className="block type-heading-md text-questrade-grey-600 mb-1">
+      <label className="block type-body-sm text-design-muted mb-1.5 font-medium">
         {label}
       </label>
       <button
         type="button"
-        className={`w-full flex items-center justify-between rounded-xl border bg-white px-3 py-2.5 text-left type-input transition-colors
-          ${isOpen ? 'border-questrade-green ring-1 ring-questrade-green' : 'border-questrade-grey-300'}
-          ${disabled ? 'bg-questrade-grey-100 cursor-not-allowed opacity-60' : 'hover:border-questrade-grey-400 cursor-pointer'}
+        className={`w-full flex items-center justify-between rounded-lg border px-3 py-2.5 text-left type-input transition-colors shadow-sm
+          ${isOpen ? 'border-design-link ring-1 ring-design-link bg-white' : 'border-design-border bg-white'}
+          ${disabled ? 'bg-[#F0F2F5] cursor-not-allowed opacity-70' : 'hover:border-design-muted/50 cursor-pointer'}
         `}
         onClick={toggle}
         onKeyDown={(e) => handleKeyDown(e)}
@@ -98,7 +98,7 @@ export function Dropdown({
         aria-expanded={isOpen}
         disabled={disabled}
       >
-        <span className={`truncate ${selectedAccount ? 'text-questrade-grey-900' : 'text-questrade-grey-400'}`}>
+        <span className={`truncate ${selectedAccount ? 'text-design-ink' : 'text-design-muted'}`}>
           {selectedAccount
             ? selectedAccount.displayName
             : isEmpty
@@ -109,7 +109,7 @@ export function Dropdown({
       </button>
 
       {(allDisabled || helperText) && (
-        <p className="type-body-sm text-questrade-grey-500 mt-1">
+        <p className="type-body-sm text-design-muted mt-1">
           {helperText ?? 'None of your accounts are currently eligible to receive this transfer.'}
         </p>
       )}
@@ -117,7 +117,7 @@ export function Dropdown({
       {isOpen && !isEmpty && (
         <ul
           role="listbox"
-          className="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto rounded-xl border border-questrade-grey-200 bg-white shadow-lg"
+          className="absolute z-50 mt-1 w-full max-h-48 overflow-y-auto rounded-xl border border-design-border bg-white shadow-lift"
         >
           {filteredAccounts.map((account) => {
             const badgeInfo = eligibilityBadge[account.eligibility];
@@ -131,8 +131,8 @@ export function Dropdown({
                 aria-disabled={isItemDisabled}
                 tabIndex={isItemDisabled ? -1 : 0}
                 className={`flex items-center justify-between px-3 py-2.5 type-body-md transition-colors
-                  ${isItemDisabled ? 'text-questrade-grey-400 cursor-not-allowed' : 'text-questrade-grey-900 cursor-pointer hover:bg-questrade-grey-50'}
-                  ${selectedAccount?.accountId === account.accountId ? 'bg-questrade-green-light' : ''}
+                  ${isItemDisabled ? 'text-design-muted/50 cursor-not-allowed' : 'text-design-ink cursor-pointer hover:bg-[#F5F7F9]'}
+                  ${selectedAccount?.accountId === account.accountId ? 'bg-design-soft' : ''}
                 `}
                 onClick={() => !isItemDisabled && handleSelect(account)}
                 onKeyDown={(e) => !isItemDisabled && handleKeyDown(e, account)}
@@ -151,7 +151,7 @@ export function Dropdown({
 function ChevronIcon({ isOpen }: { isOpen: boolean }) {
   return (
     <svg
-      className={`h-4 w-4 text-questrade-grey-400 transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+      className={`h-4 w-4 text-design-muted transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"

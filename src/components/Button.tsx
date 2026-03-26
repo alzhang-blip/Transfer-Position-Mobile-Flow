@@ -19,13 +19,13 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    'inline-flex items-center justify-center rounded-full font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+    'inline-flex items-center justify-center rounded-full font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-offset-2';
 
   const variants = {
     primary:
-      'bg-questrade-green text-white hover:bg-questrade-green-dark focus-visible:ring-questrade-green disabled:bg-questrade-grey-300 disabled:text-questrade-grey-500 disabled:cursor-not-allowed',
+      'bg-questrade-green text-white shadow-sm hover:bg-questrade-green-dark active:bg-[#063818] focus-visible:ring-2 focus-visible:ring-questrade-green disabled:bg-questrade-grey-300 disabled:text-questrade-grey-500 disabled:cursor-not-allowed disabled:shadow-none',
     secondary:
-      'bg-white text-questrade-grey-800 border border-questrade-grey-300 hover:bg-questrade-grey-50 focus-visible:ring-questrade-grey-400',
+      'bg-white text-design-ink border border-design-border shadow-sm hover:bg-[#F8F9FB] active:bg-design-close focus-visible:ring-2 focus-visible:ring-design-border focus-visible:ring-offset-2',
   };
 
   const sizes = {

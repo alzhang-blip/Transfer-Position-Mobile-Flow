@@ -1,7 +1,7 @@
 import { useTransfer } from '../context/TransferContext';
 
 const variantClasses = {
-  info: 'bg-questrade-grey-800 text-white',
+  info: 'bg-design-ink text-white',
   error: 'bg-red-700 text-white',
   success: 'bg-questrade-green text-white',
 };

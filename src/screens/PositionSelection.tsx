@@ -101,24 +101,14 @@ export function PositionSelection() {
     <div className="flex flex-col">
       <div className="flex-1">
         {/* Positions header */}
-        <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="type-heading-md text-questrade-grey-900">Positions</span>
-            <span className="type-label-sm text-questrade-grey-500 bg-questrade-grey-100 px-1.5 py-px rounded-full">
-              {state.positions.length}
-            </span>
-            {selectedCount > 0 && (
-              <span className="type-label-sm text-questrade-green bg-questrade-green-light px-1.5 py-px rounded-full">
-                {selectedCount} selected
-              </span>
-            )}
-          </div>
+        <div className="flex items-center justify-between mb-3">
+          <span className="type-heading-md text-design-ink">Positions</span>
           <div className="flex items-center gap-3">
             {selectedCount > 0 && (
               <button
                 type="button"
                 onClick={clearAllUnits}
-                className="type-label-md text-questrade-grey-500 hover:underline"
+                className="type-label-md text-design-muted hover:text-design-ink hover:underline"
                 aria-label="Clear all entered units"
               >
                 Clear
@@ -128,7 +118,7 @@ export function PositionSelection() {
               type="button"
               onClick={handleMaxAll}
               disabled={state.isLoadingPositions}
-              className="type-label-md text-questrade-green hover:underline disabled:opacity-50"
+              className="type-label-md text-design-link hover:underline disabled:opacity-50"
               aria-label="Max all units. Fills in maximum transferable units for all positions."
             >
               Max all units
@@ -151,15 +141,15 @@ export function PositionSelection() {
               placeholder="Search by ticker or name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-questrade-grey-300 px-3 py-2 type-input focus:border-questrade-green focus:ring-1 focus:ring-questrade-green focus:outline-none"
+              className="w-full rounded-lg border border-design-border bg-white px-3 py-2.5 type-input shadow-sm focus:border-design-link focus:ring-1 focus:ring-design-link focus:outline-none"
               aria-label="Search positions"
             />
           </div>
         )}
 
-        <div className="position-list border border-questrade-grey-200 rounded-xl overflow-hidden max-h-[400px] overflow-y-auto bg-white">
+        <div className="position-list mt-3 border border-design-border rounded-2xl overflow-hidden max-h-[400px] overflow-y-auto bg-white shadow-card">
           {filteredPositions.length === 0 ? (
-            <div className="py-6 text-center text-questrade-grey-400 type-body-lg">
+            <div className="py-6 text-center text-design-muted type-body-md">
               {searchQuery ? 'No positions match your search.' : 'No positions available.'}
             </div>
           ) : (
@@ -180,7 +170,7 @@ export function PositionSelection() {
             <InfoBanner variant="blue">
               <p>To transfer fractional shares, contact support.</p>
               <p className="mt-1">
-                <a href="tel:18887837866" className="text-questrade-green font-medium underline">
+                <a href="tel:18887837866" className="text-design-link font-medium underline decoration-design-link/40">
                   1-(888)-783-7866
                 </a>
               </p>
@@ -190,7 +180,7 @@ export function PositionSelection() {
       </div>
 
       <div className="text-center pt-3 pb-1">
-        <a href="#" className="type-body-sm text-questrade-green underline">
+        <a href="#" className="type-body-sm text-design-link underline decoration-design-link/40 underline-offset-2">
           View disclosure
         </a>
       </div>

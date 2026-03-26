@@ -9,10 +9,11 @@ interface BadgeProps {
 }
 
 const variantClasses: Record<BadgeVariant, string> = {
-  green: 'bg-questrade-green-light text-questrade-green',
+  green:
+    'bg-emerald-50 text-emerald-900 border border-emerald-200/80',
   yellow: 'bg-questrade-yellow-bg text-yellow-800',
   purple: 'bg-questrade-purple-bg text-questrade-purple-text',
-  grey: 'bg-questrade-grey-200 text-questrade-grey-600',
+  grey: 'bg-design-close text-design-muted',
 };
 
 export function Badge({ variant, icon, children }: BadgeProps) {
