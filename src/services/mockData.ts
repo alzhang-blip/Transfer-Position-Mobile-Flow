@@ -221,14 +221,18 @@ const generateLargePositionList = (): Position[] => {
     ['CCI', 'Crown Castle Intl Corp'],
   ];
 
-  return tickers.map(([symbol, name]) => ({
-    symbol,
-    companyName: name,
-    availableUnits: Math.floor(Math.random() * 50) + 1,
-    isFractional: false,
-    isTransferable: true,
-    isMutualFund: false,
-  }));
+  const fractionalSymbols = new Set(['AAPL', 'AMZN', 'AVGO']);
+  return tickers.map(([symbol, name]) => {
+    const isFrac = fractionalSymbols.has(symbol);
+    return {
+      symbol,
+      companyName: name,
+      availableUnits: isFrac ? parseFloat((0.5 + Math.random() * 2).toFixed(6)) : Math.floor(Math.random() * 50) + 1,
+      isFractional: isFrac,
+      isTransferable: !isFrac,
+      isMutualFund: false,
+    };
+  });
 };
 
 export const mockPositionsByAccount: Record<string, Position[]> = {

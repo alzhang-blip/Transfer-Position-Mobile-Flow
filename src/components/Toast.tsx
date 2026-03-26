@@ -19,7 +19,7 @@ export function ToastContainer() {
       {state.toasts.map((toast) => (
         <div
           key={toast.id}
-          className={`rounded-lg px-3 py-2 text-[13px] shadow-lg animate-slideUp pointer-events-auto flex items-center justify-between gap-2 ${variantClasses[toast.variant]}`}
+          className={`rounded-lg px-3 py-2 text-[14px] shadow-lg animate-slideUp pointer-events-auto flex items-center justify-between gap-2 ${variantClasses[toast.variant]}`}
           role="status"
         >
           <span className="leading-snug">{toast.text}</span>

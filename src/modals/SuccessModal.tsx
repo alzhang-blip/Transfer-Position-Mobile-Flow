@@ -12,11 +12,11 @@ export function SuccessModal() {
           <HourglassIllustration />
         </div>
 
-        <h2 className="text-[17px] font-bold text-questrade-grey-900 mb-2">
+        <h2 className="text-[18px] font-bold text-questrade-grey-900 mb-2">
           Your transfer is being processed
         </h2>
 
-        <p className="text-[14px] text-questrade-grey-500 leading-relaxed mb-5">
+        <p className="text-[15px] text-questrade-grey-500 leading-relaxed mb-5">
           We've received your request. Monitor progress in your{' '}
           <button type="button" onClick={done} className="text-questrade-green font-semibold underline">
             Transfer investments history

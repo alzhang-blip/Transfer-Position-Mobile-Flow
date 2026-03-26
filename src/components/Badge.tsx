@@ -18,7 +18,7 @@ const variantClasses: Record<BadgeVariant, string> = {
 export function Badge({ variant, icon, children }: BadgeProps) {
   return (
     <span
-      className={`inline-flex items-center gap-0.5 rounded-full px-2 py-px text-[12px] font-medium whitespace-nowrap leading-tight ${variantClasses[variant]}`}
+      className={`inline-flex items-center gap-0.5 rounded-full px-2 py-px text-[13px] font-medium whitespace-nowrap leading-tight ${variantClasses[variant]}`}
     >
       {icon}
       {children}

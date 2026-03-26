@@ -16,7 +16,7 @@ const variantClasses: Record<BannerVariant, string> = {
 export function InfoBanner({ variant = 'yellow', children }: InfoBannerProps) {
   return (
     <div
-      className={`rounded-xl border px-3 py-2 text-[13px] leading-relaxed ${variantClasses[variant]}`}
+      className={`rounded-xl border px-3 py-2 text-[14px] leading-relaxed ${variantClasses[variant]}`}
       role="note"
     >
       {children}

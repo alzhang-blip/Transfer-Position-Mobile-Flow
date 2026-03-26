@@ -22,7 +22,7 @@ export function ErrorState({ message, onRetry }: ErrorStateProps) {
           d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
         />
       </svg>
-      <p className="text-[14px] text-questrade-grey-600 leading-relaxed mb-4 max-w-[240px]">
+      <p className="text-[15px] text-questrade-grey-600 leading-relaxed mb-4 max-w-[240px]">
         {message}
       </p>
       <Button size="sm" onClick={onRetry}>Retry</Button>

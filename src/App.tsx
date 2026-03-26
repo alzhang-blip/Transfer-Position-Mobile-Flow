@@ -84,7 +84,7 @@ function TransferFlow() {
           <button
             type="button"
             onClick={handleBack}
-            className="flex items-center gap-1.5 text-[14px] text-questrade-green hover:underline"
+            className="flex items-center gap-1.5 text-[15px] text-questrade-green hover:underline"
             aria-label="Go back"
           >
             <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -97,10 +97,10 @@ function TransferFlow() {
 
       {/* Header */}
       <header className="px-3.5 pt-4 pb-2 flex-shrink-0">
-        <h1 className="text-[22px] font-bold text-questrade-grey-900 leading-tight">
+        <h1 className="text-[24px] font-bold text-questrade-grey-900 leading-tight">
           Transfer investments
         </h1>
-        <p className="mt-2 text-[13px] text-questrade-grey-500 leading-relaxed">
+        <p className="mt-2 text-[14px] text-questrade-grey-500 leading-relaxed">
           Transfer investments between your Questrade Self-directed accounts. For
           transfers from another broker or financial institution, go to{' '}
           <a href="#" className="text-questrade-green font-medium underline">
@@ -136,7 +136,7 @@ function TransferFlow() {
               Next
             </Button>
             {!hasSelectedPositions && state.positions.length > 0 && (
-              <p className="text-[12px] text-questrade-grey-400 text-center mt-1">
+              <p className="text-[13px] text-questrade-grey-400 text-center mt-1">
                 Enter units for at least one position.
               </p>
             )}

@@ -23,9 +23,12 @@ function WarningIcon() {
 
 function getUnitsBadge(position: Position) {
   if (position.isFractional) {
+    const displayUnits = Number.isInteger(position.availableUnits)
+      ? position.availableUnits
+      : parseFloat(position.availableUnits.toFixed(6));
     return (
       <Badge variant="yellow" icon={<WarningIcon />}>
-        {position.availableUnits} units
+        {displayUnits} units
       </Badge>
     );
   }
@@ -55,9 +58,12 @@ export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted =
     disabledReason = 'Contact support';
   }
 
+  const displayAvailable = Number.isInteger(position.availableUnits)
+    ? position.availableUnits
+    : parseFloat(position.availableUnits.toFixed(6));
   const accessibleDescription = isDisabled
-    ? `${position.symbol}, ${position.companyName}, ${position.availableUnits} units available, not eligible for transfer`
-    : `${position.symbol}, ${position.companyName}, ${position.availableUnits} units available`;
+    ? `${position.symbol}, ${position.companyName}, ${displayAvailable} units available, not eligible for transfer`
+    : `${position.symbol}, ${position.companyName}, ${displayAvailable} units available`;
 
   return (
     <div
@@ -67,13 +73,13 @@ export function PositionRow({ position, units, onUnitsChange, isFhsaRestricted =
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="font-bold text-questrade-grey-900 text-[14px] leading-tight">
+          <span className="font-bold text-questrade-grey-900 text-[15px] leading-tight">
             {position.symbol}
           </span>
           {getUnitsBadge(position)}
           {isFhsaRestricted && <Badge variant="grey">Not FHSA eligible</Badge>}
         </div>
-        <p className="text-[12px] text-questrade-grey-400 truncate mt-0.5 leading-snug" title={position.companyName}>
+        <p className="text-[13px] text-questrade-grey-400 truncate mt-0.5 leading-snug" title={position.companyName}>
           {position.companyName}
         </p>
       </div>
