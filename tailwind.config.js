@@ -5,9 +5,9 @@ export default {
     extend: {
       colors: {
         design: {
-          canvas: '#F5F7F9',
+          canvas: '#FFFFFF',
           surface: '#FFFFFF',
-          border: '#E1E5EA',
+          border: '#E0E6ED',
           muted: '#707E94',
           ink: '#2D2D2D',
           primary: '#7D9A7D',
@@ -17,6 +17,9 @@ export default {
           soft: '#EEF4EE',
           close: '#E8EAEE',
           'close-hover': '#DADEE5',
+          /* Pale blue info panels — saturated enough to read as tinted vs white canvas */
+          'info-surface': '#D8E8FF',
+          'info-border': '#B8D4F0',
         },
         questrade: {
           green: '#0A5F2C',

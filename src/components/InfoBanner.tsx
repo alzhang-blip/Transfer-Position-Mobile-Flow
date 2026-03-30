@@ -7,16 +7,11 @@ interface InfoBannerProps {
   children: ReactNode;
 }
 
-const variantClasses: Record<BannerVariant, string> = {
-  yellow: 'bg-white border-design-border text-design-ink',
-  blue: 'bg-white border-design-border text-design-ink',
-  neutral: 'bg-white border-design-border text-design-ink',
-};
-
-export function InfoBanner({ variant = 'yellow', children }: InfoBannerProps) {
+/** Variant preserved for call sites; all use the same pale blue informational cell. */
+export function InfoBanner({ variant: _variant = 'yellow', children }: InfoBannerProps) {
   return (
     <div
-      className={`rounded-2xl border px-3.5 py-3 type-body-md shadow-card ${variantClasses[variant]}`}
+      className="info-education-cell px-4 py-4 type-body-md text-design-ink leading-relaxed shadow-none [&_a]:text-design-link"
       role="note"
     >
       {children}

@@ -18,7 +18,7 @@ function HubCard({
     <button
       type="button"
       onClick={onClick}
-      className="w-full text-left rounded-2xl border border-design-border bg-white px-4 py-4 shadow-card active:bg-[#F0F2F5] transition-colors"
+      className="w-full text-left rounded-xl border border-design-border bg-white px-4 py-4 shadow-none active:bg-[#F5F7F9] transition-colors"
     >
       <h3 className="type-heading-md text-design-ink">{title}</h3>
       <p className="type-body-md text-design-muted mt-1.5 leading-relaxed">{description}</p>
@@ -37,8 +37,8 @@ export function MoveMoneyHub({
   };
 
   return (
-    <div className="flex flex-col flex-1 min-h-0 bg-design-canvas">
-      <header className="relative flex-shrink-0 flex items-center justify-center px-3.5 pt-3 pb-3.5 border-b border-design-border bg-design-canvas">
+    <div className="flex flex-col flex-1 min-h-0 bg-white">
+      <header className="relative flex-shrink-0 flex items-center justify-center px-3.5 pt-3 pb-3.5 border-b border-design-border bg-white">
         <h1 className="type-display-sm text-design-ink text-center">Move money</h1>
         <button
           type="button"
@@ -52,8 +52,8 @@ export function MoveMoneyHub({
         </button>
       </header>
 
-      <div className="flex-1 overflow-y-auto px-3.5 py-5">
-        <div className="space-y-3">
+      <div className="flex-1 overflow-y-auto px-3.5 py-5 bg-white">
+        <div className="space-y-4">
           <HubCard
             title="Deposit"
             description="Add money to your Questrade account."
@@ -77,7 +77,7 @@ export function MoveMoneyHub({
         </div>
 
         <h2 className="type-heading-md text-design-ink mt-8 mb-3 font-semibold">Move money history</h2>
-        <div className="space-y-3">
+        <div className="space-y-4">
           <HubCard
             title="Deposit history"
             description="Review your deposit transactions."

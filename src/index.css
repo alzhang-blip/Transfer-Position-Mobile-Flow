@@ -71,6 +71,15 @@
   border-radius: 3px;
 }
 
+/* Educational / contextual info cells — explicit paint so it never reads as plain white */
+@layer components {
+  .info-education-cell {
+    background-color: #d8e8ff;
+    border: 1px solid #b8d4f0;
+    border-radius: 10px;
+  }
+}
+
 /* ──────────────────────────────────────────────────
    Showcase page (the page that holds the phone)
    ────────────────────────────────────────────────── */
@@ -176,7 +185,7 @@
   position: relative;
   width: 100%;
   height: 100%;
-  background: #f5f7f9;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -190,7 +199,7 @@
   align-items: flex-end;
   justify-content: space-between;
   padding: 0 28px 8px;
-  background: #f5f7f9;
+  background: #ffffff;
   position: relative;
   z-index: 60;
 }
@@ -232,7 +241,7 @@
   flex-direction: column;
   position: relative;
   -webkit-overflow-scrolling: touch;
-  background: #f5f7f9;
+  background: #ffffff;
 }
 
 .iphone-content::-webkit-scrollbar {
@@ -255,7 +264,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f5f7f9;
+  background: #ffffff;
   position: relative;
   z-index: 60;
 }

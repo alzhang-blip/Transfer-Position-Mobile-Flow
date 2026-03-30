@@ -1,7 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { useTransfer } from '../context/TransferContext';
 import { Dropdown } from '../components/Dropdown';
-import { InfoBanner } from '../components/InfoBanner';
 import { InfoCard } from '../components/InfoCard';
 import { ContextualWarnings } from '../components/ContextualWarnings';
 import { EmptyState } from '../components/EmptyState';
@@ -98,11 +97,6 @@ export function AccountSelection() {
       </div>
 
       <div className="mt-6 space-y-4">
-        <InfoBanner>
-          All positions will be valued and transferred based on the closing market price of the
-          day the request is created.
-        </InfoBanner>
-
         <ContextualWarnings fromAccount={state.fromAccount} toAccount={state.toAccount} />
 
         <InfoCard variant="info" title="Self-directed accounts only">

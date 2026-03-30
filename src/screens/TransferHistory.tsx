@@ -231,15 +231,25 @@ export function TransferHistory({ onBack, onClose, showToast }: TransferHistoryP
   return (
     <div className="flex flex-col h-full">
       {/* Nav bar */}
-      <nav className="bg-design-canvas border-b border-design-border px-3.5 py-2.5 flex items-center justify-between flex-shrink-0">
-        <button type="button" onClick={onBack} className="p-1 rounded-full hover:bg-design-close transition-colors" aria-label="Go back">
-          <svg className="h-5 w-5 text-design-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <nav className="bg-white border-b border-design-border px-3.5 py-2.5 flex items-center justify-between flex-shrink-0">
+        <button
+          type="button"
+          onClick={onBack}
+          className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-design-border bg-white text-design-muted shadow-none hover:bg-[#F5F7F9] transition-colors"
+          aria-label="Go back"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
         </button>
         <h2 className="type-heading-lg text-design-ink">Transfer investments history</h2>
-        <button type="button" onClick={onClose} className="p-1 rounded-full hover:bg-design-close transition-colors" aria-label="Close">
-          <svg className="h-5 w-5 text-design-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <button
+          type="button"
+          onClick={onClose}
+          className="inline-flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-design-border bg-white text-design-muted shadow-none hover:bg-[#F5F7F9] transition-colors"
+          aria-label="Close"
+        >
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -442,7 +452,7 @@ function CommentsSheet({
 
 function CommentCard({ comment }: { comment: TransferComment }) {
   return (
-    <div className="bg-white border border-design-border rounded-2xl px-4 py-3 shadow-card">
+    <div className="bg-white border border-design-border rounded-xl px-4 py-3 shadow-none">
       {/* Header row */}
       <div className="flex items-baseline justify-between gap-2 mb-2">
         <span className="type-heading-sm text-design-ink">{comment.agentName}</span>
@@ -510,10 +520,8 @@ function HistoryCard({
   onCancel: () => void;
   onComments: () => void;
 }) {
-  const hasAnyAction = record.hasComments || record.isCancellable;
-
   return (
-    <div className="bg-white border border-design-border rounded-2xl px-3.5 py-3 shadow-card">
+    <div className="bg-white border border-design-border rounded-xl px-3.5 py-3 shadow-none">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
@@ -527,56 +535,61 @@ function HistoryCard({
           <p className="type-body-sm text-design-muted mb-2">
             {record.refId} &middot; {formatDate(record.date)}
           </p>
-          <div className="grid grid-cols-3 gap-1">
-            <div>
-              <span className="type-body-sm text-design-muted font-medium">From</span>
-              <p className="type-body-md text-design-ink">{record.fromAccount}</p>
+          {/* Fixed Qty column + reserved action width keep From/To/Qty aligned across every card */}
+          <div className="grid min-w-0 grid-cols-[minmax(0,1fr)_minmax(0,1fr)_4rem] items-start gap-x-7 gap-y-1">
+            <div className="min-w-0 pr-3">
+              <span className="type-body-sm text-design-muted font-medium block">From</span>
+              <p className="type-body-sm text-design-ink tabular-nums leading-snug whitespace-nowrap">
+                {record.fromAccount}
+              </p>
             </div>
-            <div>
-              <span className="type-body-sm text-design-muted font-medium">To</span>
-              <p className="type-body-md text-design-ink">{record.toAccount}</p>
+            <div className="min-w-0 pl-2 pr-1">
+              <span className="type-body-sm text-design-muted font-medium block">To</span>
+              <p className="type-body-sm text-design-ink tabular-nums leading-snug whitespace-nowrap">
+                {record.toAccount}
+              </p>
             </div>
-            <div>
-              <span className="type-body-sm text-design-muted font-medium">Qty</span>
-              <p className="type-body-md text-design-ink">{record.qty}</p>
+            <div className="min-w-0 w-full pl-2 text-right">
+              <span className="type-body-sm text-design-muted font-medium block">Qty</span>
+              <p className="type-body-sm text-design-ink tabular-nums text-right leading-snug whitespace-nowrap">
+                {record.qty}
+              </p>
             </div>
           </div>
         </div>
 
-        {hasAnyAction && (
-          <div className="flex flex-col items-end gap-1.5 flex-shrink-0 mt-0.5">
-            <div className="flex items-center gap-1">
-              {record.hasComments && (
-                <button
-                  type="button"
-                  onClick={onComments}
-                  className="relative p-1.5 text-design-muted hover:text-design-primary-dark transition-colors"
-                  aria-label={`View comments for transfer ${record.refId}${record.unreadCommentCount > 0 ? ` (${record.unreadCommentCount} unread)` : ''}`}
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                  {record.unreadCommentCount > 0 && (
-                    <span className="absolute -top-0.5 -right-0.5 h-[7px] w-[7px] bg-red-500 rounded-full ring-2 ring-white" />
-                  )}
-                </button>
-              )}
-              {record.isCancellable && (
-                <button
-                  type="button"
-                  onClick={onCancel}
-                  className="p-1.5 text-design-muted hover:text-red-600 transition-colors"
-                  aria-label={`Cancel transfer ${record.refId}`}
-                >
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <circle cx="12" cy="12" r="10" />
-                    <path strokeLinecap="round" d="M8 16l8-8" />
-                  </svg>
-                </button>
-              )}
-            </div>
+        <div className="flex w-[4.5rem] flex-shrink-0 flex-col items-end gap-1.5 mt-0.5">
+          <div className="flex h-8 min-h-[2rem] items-center justify-end gap-1">
+            {record.hasComments && (
+              <button
+                type="button"
+                onClick={onComments}
+                className="relative p-1.5 text-design-muted hover:text-design-primary-dark transition-colors"
+                aria-label={`View comments for transfer ${record.refId}${record.unreadCommentCount > 0 ? ` (${record.unreadCommentCount} unread)` : ''}`}
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                {record.unreadCommentCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 h-[7px] w-[7px] bg-red-500 rounded-full ring-2 ring-white" />
+                )}
+              </button>
+            )}
+            {record.isCancellable && (
+              <button
+                type="button"
+                onClick={onCancel}
+                className="p-1.5 text-design-muted hover:text-red-600 transition-colors"
+                aria-label={`Cancel transfer ${record.refId}`}
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <circle cx="12" cy="12" r="10" />
+                  <path strokeLinecap="round" d="M8 16l8-8" />
+                </svg>
+              </button>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

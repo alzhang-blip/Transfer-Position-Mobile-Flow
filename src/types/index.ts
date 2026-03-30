@@ -45,9 +45,9 @@ export interface TransferResponse {
   transferId?: string;
 }
 
-export type TransferStep = 'account-selection' | 'position-selection';
+export type TransferStep = 'account-selection' | 'position-selection' | 'review-confirm';
 
-export type ModalState = 'none' | 'review' | 'error' | 'success' | 'confirm-leave';
+export type ModalState = 'none' | 'error' | 'success' | 'confirm-leave';
 
 export interface ToastMessage {
   id: string;

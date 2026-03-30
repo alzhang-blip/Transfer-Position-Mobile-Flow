@@ -11,13 +11,13 @@ interface InfoCardProps {
 export function InfoCard({ variant: _variant = 'info', title, children }: InfoCardProps) {
   return (
     <div
-      className="rounded-2xl border border-design-border bg-white px-3.5 py-3 shadow-card"
+      className="info-education-cell px-4 py-4 shadow-none text-design-ink"
       role="note"
     >
-      <h3 className="type-heading-md text-design-ink mb-1">
+      <h3 className="type-heading-md text-design-ink mb-1.5">
         {title}
       </h3>
-      <div className="type-body-md text-design-muted">
+      <div className="type-body-md text-design-ink leading-relaxed [&_a]:text-design-link">
         {children}
       </div>
     </div>

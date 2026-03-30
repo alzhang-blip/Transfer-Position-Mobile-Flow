@@ -140,8 +140,8 @@ export interface TransferContextValue {
   clearAllUnits: () => void;
   goToPositionSelection: () => void;
   goBackToAccountSelection: () => void;
-  openReviewModal: () => void;
-  closeModal: () => void;
+  goToReviewConfirm: () => void;
+  goBackFromReview: () => void;
   confirmTransfer: () => Promise<void>;
   tryAgain: () => void;
   tryAgainWithRefresh: () => void;
@@ -274,13 +274,14 @@ export function TransferProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_MODAL', modal: 'none' });
   }, []);
 
-  // ── Modals ──────────────────────────────────
-  const openReviewModal = useCallback(() => {
-    dispatch({ type: 'SET_MODAL', modal: 'review' });
+  // ── Review screen (full page, not modal) ───
+  const goToReviewConfirm = useCallback(() => {
+    dispatch({ type: 'SET_MODAL', modal: 'none' });
+    dispatch({ type: 'SET_STEP', step: 'review-confirm' });
   }, []);
 
-  const closeModal = useCallback(() => {
-    dispatch({ type: 'SET_MODAL', modal: 'none' });
+  const goBackFromReview = useCallback(() => {
+    dispatch({ type: 'SET_STEP', step: 'position-selection' });
   }, []);
 
   // ── Transfer submission ─────────────────────
@@ -350,6 +351,7 @@ export function TransferProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'SET_MODAL', modal: 'none' });
     dispatch({ type: 'SET_ERROR', code: null, message: null });
     dispatch({ type: 'CLEAR_UNIT_ENTRIES' });
+    dispatch({ type: 'SET_STEP', step: 'position-selection' });
     if (state.fromAccount) {
       await loadPositions(state.fromAccount.accountId);
     }
@@ -374,8 +376,8 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       clearAllUnits,
       goToPositionSelection,
       goBackToAccountSelection,
-      openReviewModal,
-      closeModal,
+      goToReviewConfirm,
+      goBackFromReview,
       confirmTransfer,
       tryAgain,
       tryAgainWithRefresh,
@@ -398,8 +400,8 @@ export function TransferProvider({ children }: { children: ReactNode }) {
       clearAllUnits,
       goToPositionSelection,
       goBackToAccountSelection,
-      openReviewModal,
-      closeModal,
+      goToReviewConfirm,
+      goBackFromReview,
       confirmTransfer,
       tryAgain,
       tryAgainWithRefresh,

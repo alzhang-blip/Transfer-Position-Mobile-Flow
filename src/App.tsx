@@ -8,12 +8,20 @@ import { AccountSelection } from './screens/AccountSelection';
 import { PositionSelection } from './screens/PositionSelection';
 import { TransferHistory } from './screens/TransferHistory';
 import { MoveMoneyHub } from './screens/MoveMoneyHub';
-import { ReviewConfirmModal } from './modals/ReviewConfirmModal';
+import { ReviewConfirmScreen } from './screens/ReviewConfirmScreen';
 import { ErrorModal } from './modals/ErrorModal';
 import { SuccessModal } from './modals/SuccessModal';
 import { Button } from './components/Button';
+import { TransferProgressBar } from './components/TransferProgressBar';
+import type { TransferStep } from './types';
 
 type AppView = 'hub' | 'transfer' | 'history';
+
+const STEP_ORDER: Record<TransferStep, number> = {
+  'account-selection': 0,
+  'position-selection': 1,
+  'review-confirm': 2,
+};
 
 function TransferFlow({
   onExitToHub,
@@ -26,9 +34,12 @@ function TransferFlow({
     state,
     goBackToAccountSelection,
     requestLeave,
-    openReviewModal,
+    goToReviewConfirm,
+    goBackFromReview,
+    confirmTransfer,
     loadPositions,
     goToPositionSelection,
+    showToast,
   } = useTransfer();
 
   const prevStepRef = useRef(state.step);
@@ -37,15 +48,18 @@ function TransferFlow({
 
   useEffect(() => {
     if (prevStepRef.current !== state.step) {
-      const isForward = state.step === 'position-selection';
-      setSlideDirection(isForward ? 'left' : 'right');
+      const prev = prevStepRef.current;
+      const forward = STEP_ORDER[state.step] > STEP_ORDER[prev];
+      setSlideDirection(forward ? 'left' : 'right');
       setSlideKey((k) => k + 1);
       prevStepRef.current = state.step;
     }
   }, [state.step]);
 
   const handleBack = () => {
-    if (state.step === 'position-selection') {
+    if (state.step === 'review-confirm') {
+      goBackFromReview();
+    } else if (state.step === 'position-selection') {
       if (state.hasUnsavedData) {
         requestLeave();
       } else {
@@ -87,48 +101,58 @@ function TransferFlow({
     <>
       <div className="flex flex-col flex-1 min-h-0 w-full">
         {/* Fixed: top nav + screen title / summary only */}
-        <div className="flex-shrink-0 bg-design-canvas border-b border-design-border">
-          <nav className="px-3.5 py-2.5">
-            {state.step === 'account-selection' ? (
-              <button
-                type="button"
-                onClick={onExitToHub}
-                className="inline-flex items-center gap-2 rounded-full bg-design-close pl-2.5 pr-3 py-2 type-label-md text-design-link hover:bg-design-close-hover transition-colors"
-                aria-label="Back to Move money"
-              >
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm border border-design-border/60">
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <div className="flex-shrink-0 bg-white border-b border-design-border">
+          <header className="relative flex items-center justify-center px-3.5 py-2.5 min-h-[52px]">
+            <div className="absolute left-3.5 top-1/2 -translate-y-1/2">
+              {state.step === 'account-selection' ? (
+                <button
+                  type="button"
+                  onClick={onExitToHub}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-design-close text-design-ink shadow-none hover:bg-design-close-hover transition-colors"
+                  aria-label="Back to Move money"
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                   </svg>
-                </span>
-                <span>Back to Move money</span>
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={handleBack}
-                className="inline-flex items-center gap-2 rounded-full bg-design-close pl-2.5 pr-3 py-2 type-label-md text-design-link hover:bg-design-close-hover transition-colors"
-                aria-label="Go back to account selection"
-              >
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm border border-design-border/60">
-                  <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-design-close text-design-ink shadow-none hover:bg-design-close-hover transition-colors"
+                  aria-label={
+                    state.step === 'review-confirm'
+                      ? 'Back to positions'
+                      : 'Go back to account selection'
+                  }
+                >
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                   </svg>
-                </span>
-                <span>Back to Account selection</span>
-              </button>
-            )}
-          </nav>
-
-          <header className="px-3.5 pt-2 pb-3">
-            <h1 className="type-display-lg text-design-ink">
-              Transfer investments
+                </button>
+              )}
+            </div>
+            <h1 className="type-heading-lg text-design-ink max-w-[calc(100%-7rem)] text-center truncate tracking-tight">
+              {state.step === 'review-confirm' ? 'Review and confirm' : 'Transfer investments'}
             </h1>
+            <div className="absolute right-3.5 top-1/2 -translate-y-1/2">
+              <button
+                type="button"
+                onClick={() => showToast('More options are not available in this prototype.', 'info')}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-design-close text-design-ink shadow-none hover:bg-design-close-hover transition-colors"
+                aria-label="More options"
+              >
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                </svg>
+              </button>
+            </div>
           </header>
+          <TransferProgressBar step={state.step} />
         </div>
 
         {/* Scroll: intro / From–To + main flow (everything between header and pinned Next) */}
-        <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden bg-design-canvas">
+        <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden bg-white">
           <div className="px-3.5 pt-3 pb-2">
             {state.step === 'account-selection' ? (
               <>
@@ -152,8 +176,8 @@ function TransferFlow({
                   .
                 </p>
               </>
-            ) : (
-              <div className="rounded-2xl border border-design-border bg-white px-3.5 py-3.5 space-y-3 shadow-card">
+            ) : state.step === 'position-selection' ? (
+              <div className="rounded-xl border border-design-border bg-white px-3.5 py-3.5 space-y-3 shadow-none">
                 <div>
                   <span className="type-body-sm text-design-muted font-medium">From</span>
                   <p className="type-body-lg text-design-ink mt-0.5">
@@ -167,19 +191,25 @@ function TransferFlow({
                   </p>
                 </div>
               </div>
-            )}
+            ) : state.step === 'review-confirm' ? (
+              <div key={slideKey} className={slideClass}>
+                <ReviewConfirmScreen />
+              </div>
+            ) : null}
           </div>
 
-          <main className="px-3.5 pt-6 pb-4">
-            <div key={slideKey} className={slideClass}>
-              {state.step === 'account-selection' && <AccountSelection />}
-              {state.step === 'position-selection' && <PositionSelection />}
-            </div>
-          </main>
+          {state.step !== 'review-confirm' && (
+            <main className="px-3.5 pt-6 pb-4">
+              <div key={slideKey} className={slideClass}>
+                {state.step === 'account-selection' && <AccountSelection />}
+                {state.step === 'position-selection' && <PositionSelection />}
+              </div>
+            </main>
+          )}
         </div>
 
         {/* Pinned footer: always at bottom of screen (above home indicator) */}
-        <div className="flex-shrink-0 bg-design-canvas px-3.5 pt-3 pb-3 border-t border-design-border shadow-[0_-4px_24px_rgba(32,36,43,0.06)]">
+        <div className="flex-shrink-0 bg-white px-3.5 pt-3 pb-3 border-t border-design-border">
           {state.step === 'account-selection' && (
             <Button
               fullWidth
@@ -192,7 +222,7 @@ function TransferFlow({
           )}
           {state.step === 'position-selection' && (
             <>
-              <Button fullWidth disabled={!canProceedPositions} onClick={openReviewModal}>
+              <Button fullWidth disabled={!canProceedPositions} onClick={goToReviewConfirm}>
                 Next
               </Button>
               {!hasSelectedPositions && state.positions.length > 0 && (
@@ -202,10 +232,25 @@ function TransferFlow({
               )}
             </>
           )}
+          {state.step === 'review-confirm' && (
+            <div className="flex gap-2.5">
+              <Button variant="secondary" fullWidth onClick={goBackFromReview} disabled={state.isSubmitting}>
+                Edit
+              </Button>
+              <Button
+                variant="primary"
+                fullWidth
+                onClick={() => void confirmTransfer()}
+                loading={state.isSubmitting}
+                disabled={state.isSubmitting}
+              >
+                {state.isSubmitting ? 'Processing...' : 'Confirm'}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
-      <ReviewConfirmModal />
       <ErrorModal />
       <SuccessModal onNavigateToHistory={navigateToHistory} />
       <ConfirmDialog />
@@ -255,10 +300,10 @@ function AppRouter() {
   return (
     <>
       <OfflineBanner />
-      <div className="flex flex-col flex-1 min-h-0 w-full overflow-hidden">
+      <div className="flex flex-col flex-1 min-h-0 w-full overflow-hidden bg-white">
         <div
           key={rootNavKey}
-          className={`flex flex-col flex-1 min-h-0 w-full ${rootSlideClass}`}
+          className={`flex flex-col flex-1 min-h-0 w-full bg-white ${rootSlideClass}`}
         >
           {view === 'hub' && (
             <MoveMoneyHub

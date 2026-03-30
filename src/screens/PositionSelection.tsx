@@ -147,7 +147,7 @@ export function PositionSelection() {
           </div>
         )}
 
-        <div className="position-list mt-3 border border-design-border rounded-2xl overflow-hidden max-h-[400px] overflow-y-auto bg-white shadow-card">
+        <div className="position-list mt-3 border border-design-border rounded-xl overflow-hidden max-h-[400px] overflow-y-auto bg-white shadow-none">
           {filteredPositions.length === 0 ? (
             <div className="py-6 text-center text-design-muted type-body-md">
               {searchQuery ? 'No positions match your search.' : 'No positions available.'}
